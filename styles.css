@@ -1,0 +1,29 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+
+.app { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+
+.sidebar { width: 280px; padding: 16px; border-right: 1px solid #e5e7eb; overflow-y: auto; background: #fafafa; }
+.sidebar h2 { margin: 0 0 12px 0; font-size: 18px; }
+.palette-section { margin-bottom: 16px; }
+.palette-section h3 { margin: 8px 0; font-size: 14px; color: #374151; }
+.palette-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.palette-item { padding: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; cursor: grab; text-align: center; user-select: none; font-size: 13px; }
+.palette-item:active { cursor: grabbing; }
+
+.workspace { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.toolbar { display: flex; gap: 8px; padding: 10px; border-bottom: 1px solid #e5e7eb; background: #ffffff; align-items: center; }
+.toolbar button, .toolbar label { padding: 8px 12px; font-size: 13px; border: 1px solid #e5e7eb; background: #fff; border-radius: 6px; cursor: pointer; }
+.toolbar .import-json input { display: none; }
+
+.canvas-wrap { position: relative; flex: 1; background: #f9fafb; }
+#necklaceSvg { width: 100%; height: 100%; display: block; }
+
+/* Guide and beads */
+.path-guide { stroke: #cbd5e1; stroke-width: 2; fill: none; stroke-dasharray: 6 6; }
+.bead { filter: url(#bevel); cursor: pointer; }
+.bead.selected { outline: 2px solid #2563eb; }
+
+/* Hover hint */
+.hover-dot { fill: #2563eb; opacity: 0.5; pointer-events: none; }
+
