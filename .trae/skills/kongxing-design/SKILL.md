@@ -5,7 +5,7 @@ description: "空性设计 — 禅意东方审美网页设计体系。以静·�
 
 # 空性设计 · Kongxing Design
 
-空性设计是一套以**禅意东方审美**为核心的网页设计体系，服务于念珠、冥想、修行等 contemplative 品牌。
+空性设计是一套以**禅意东方审美**为核心的网页设计体系，服务于 **空性念珠 (Kongxing Mala)** 品牌及同类 contemplative 品牌。
 
 ## 核心六字
 

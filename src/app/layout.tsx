@@ -6,11 +6,11 @@ import { ThemeProvider } from "@/lib/theme";
 import { fontVariables } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "念珠工坊 — 手工定制念佛念珠 | 专属你的修行之器",
+  title: "空性念珠 — 手工定制念佛念珠 | Kongxing Mala",
   description:
-    "念珠工坊提供高品质手工定制念佛念珠。天然材质，匠人精制。在线自定义设计你的专属念珠，开启每日静心修行。",
+    "空性念珠 (Kongxing Mala) 提供高品质手工定制念佛念珠。天然材质，匠人精制。在线自定义设计你的专属念珠，开启每日静心修行。",
   openGraph: {
-    title: "念珠工坊 — 手工定制念佛念珠",
+    title: "空性念珠 — 手工定制念佛念珠 | Kongxing Mala",
     description:
       "天然材质，匠人精制。在线自定义设计你的专属念珠。",
     type: "website",

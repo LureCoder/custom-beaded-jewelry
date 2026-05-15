@@ -1,6 +1,8 @@
 # 项目规则 · Kongxing Mala
 
 > 本规则文件在每次对话中自动生效。详细参考文档见 `.trae/skills/` 下的对应 SKILL.md。
+>
+> 品牌体系：**空性念珠 (Kongxing Mala)** | 品牌标志：**NIAN·ZHU** | 设计体系：**空性设计 (Kongxing Design)**
 
 ---
 

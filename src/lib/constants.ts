@@ -1,9 +1,10 @@
 export const SITE_CONFIG = {
-  name: "念珠工坊",
-  tagline: "一念清净 · 一串菩提",
-  taglineEn: "One pure thought, one mala bead",
-  description: "手工定制念佛念珠，天然材质，匠人精制。在线自定义设计你的专属念珠，开启每日静心修行。",
-  url: "https://nianzhugongfang.com",
+  brandZh: "空性念珠",
+  brandEn: "Kongxing Mala",
+  brandMark: "NIAN·ZHU",
+  tagline: "一念清净 一串菩提",
+  taglineEn: "Every Bead a Meditation",
+  description: "空性念珠 (Kongxing Mala) 提供高品质手工定制念佛念珠。天然材质，匠人精制。在线自定义设计你的专属念珠，开启每日静心修行。",
 } as const;
 
 export const CUSTOMIZE_STEPS = [

@@ -5,17 +5,23 @@ description: "空性念珠 (Kongxing Mala) 品牌产品体系。涵盖产品线�
 
 # 空性念珠 · Kongxing Mala
 
-## 品牌英文名
+## 品牌体系
 
-**Kongxing Mala**
+```
+Kongxing · 空性
+├── 空性念珠 (Kongxing Mala)     ← 产品品牌 (对外)
+├── 空性设计 (Kongxing Design)   ← 设计体系 (内部)
+└── NIAN·ZHU                    ← 品牌标志 (导航/Logo)
+```
 
-| 中文 | 英文 | 说明 |
+| 层级 | 名称 | 用途 |
 |------|------|------|
-| 空性念珠 | Kongxing Mala | 官方品牌名 |
-| 空性 | Kongxing / Śūnyatā | 哲学核心理念 — 万物皆空，不执不着 |
-| 念珠 | Mala | 梵语 माला (mālā)，意为"花环"，西方通用的念珠称谓 |
+| 品牌名 | 空性念珠 / Kongxing Mala | 官方品牌名，网站标题 |
+| 品牌标志 | NIAN·ZHU | 导航栏、Footer、Logo 文字 |
+| 设计体系 | 空性设计 / Kongxing Design | 内部设计规范 |
+| 哲学理念 | 空性 / Kongxing | 核心理念，万物皆空，不执不着 |
 
-> **Kongxing** 是 空性 (śūnyatā) 的音译，既保留了东方哲学的韵尾，又易于英文使用者发音。**Mala** 是梵语中念珠的原名，比 "Prayer Beads" 更精确、更文化本真。
+> **Kongxing** 是空性 (śūnyatā) 的音译，既保留了东方哲学的韵尾，又易于英文使用者发音。**Mala** 是梵语中念珠的原名 (माला, mālā)，意为"花环"，比 "Prayer Beads" 更精确、更文化本真。**NIAN·ZHU** 是品牌视觉标志，取自"念珠"拼音，极简含蓄。
 
 ---
 
