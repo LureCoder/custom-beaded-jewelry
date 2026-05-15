@@ -33,7 +33,7 @@ const SectionTitle = forwardRef<HTMLDivElement, SectionTitleProps>(
         </h2>
         <div className={`w-8 h-px bg-[var(--color-border)] ${align === "center" ? "mx-auto" : ""} mt-4`} />
         {subtitle && (
-          <p className="mt-4 font-[300] text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
+          <p className="mt-4 font-[400] text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
             {subtitle}
           </p>
         )}

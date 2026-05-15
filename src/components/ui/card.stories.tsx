@@ -39,7 +39,7 @@ export const Default: Story = {
           六道木手持念珠
         </CardHeader>
         <CardContent>
-          <p className="font-[300] text-sm text-[var(--color-text-secondary)] leading-relaxed">
+          <p className="font-[400] text-sm text-[var(--color-text-secondary)] leading-relaxed">
             每颗珠子都经过匠人精心挑选，蕴含祝福与用心。
           </p>
         </CardContent>
@@ -61,7 +61,7 @@ export const Swatch: Story = {
         <CardSwatch color="#FFB900" />
         <CardContent>
           <CardColorLabel label="Amber 400" color="#FFB900" />
-          <p className="mt-2 font-[300] text-sm text-[var(--color-text-secondary)]">
+          <p className="mt-2 font-[400] text-sm text-[var(--color-text-secondary)]">
             琥珀光 — 温暖的金色光辉，如同烛光般柔和。
           </p>
         </CardContent>
@@ -79,7 +79,7 @@ export const SwatchDark: Story = {
         <CardSwatch color="#0C0C0A" />
         <CardContent>
           <CardColorLabel label="Ink Black" color="#0C0C0A" />
-          <p className="mt-2 font-[300] text-sm text-[var(--color-text-secondary)]">
+          <p className="mt-2 font-[400] text-sm text-[var(--color-text-secondary)]">
             深空 — 页面主背景色，深邃而宁静。
           </p>
         </CardContent>
@@ -97,7 +97,7 @@ export const Elevated: Story = {
         <CardSwatch color="#C9A96E" />
         <CardContent>
           <CardColorLabel label="Warm Gold" color="#C9A96E" />
-          <p className="mt-2 font-[300] text-sm text-[var(--color-text-secondary)]">
+          <p className="mt-2 font-[400] text-sm text-[var(--color-text-secondary)]">
             品牌主色，用于强调关键交互元素。
           </p>
         </CardContent>
@@ -114,7 +114,7 @@ export const Outlined: Story = {
       <>
         <CardHeader subtitle="天然材质">紫檀木佛珠</CardHeader>
         <CardContent>
-          <p className="font-[300] text-sm text-[var(--color-text-secondary)] leading-relaxed">
+          <p className="font-[400] text-sm text-[var(--color-text-secondary)] leading-relaxed">
             精选印度小叶紫檀，密度高油性好，盘玩后色泽深沉。
           </p>
         </CardContent>
@@ -182,7 +182,7 @@ export const ProductCard: StoryObj = {
   render: () => (
     <Card variant="default" hoverable className="w-64">
       <div className="aspect-square bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-secondary)] flex items-center justify-center">
-        <span className="font-[300] text-xs text-[var(--color-text-muted)]">产品图片</span>
+        <span className="font-[400] text-xs text-[var(--color-text-muted)]">产品图片</span>
       </div>
       <CardContent>
         <h3 className="font-serif font-semibold text-[var(--color-text-primary)]">
@@ -190,7 +190,7 @@ export const ProductCard: StoryObj = {
         </h3>
         <div className="flex items-center justify-between mt-2">
           <span className="font-serif text-sm text-[var(--color-accent)]">￥168</span>
-          <span className="font-[300] text-xs text-[var(--color-text-muted)]">
+          <span className="font-[400] text-xs text-[var(--color-text-muted)]">
             已定制 286 次
           </span>
         </div>

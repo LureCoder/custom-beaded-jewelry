@@ -185,7 +185,7 @@ const CardColorLabel = forwardRef<HTMLDivElement, CardColorLabelProps>(
           className="w-3 h-3 rounded-[var(--radius-sm)] border border-[var(--color-border)]"
           style={{ backgroundColor: color }}
         />
-        <span className="font-[300] text-sm text-[var(--color-text-primary)]">
+        <span className="font-[400] text-sm text-[var(--color-text-primary)]">
           {label}
         </span>
       </div>
