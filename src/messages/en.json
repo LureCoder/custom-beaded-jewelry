@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "brand": "Kongxing Mala",
+    "customize": "Customize",
+    "shop": "Shop",
+    "encyclopedia": "Encyclopedia",
+    "about": "About"
+  },
+  "hero": {
+    "brand": "Kongxing Mala",
+    "slogan": "One Pure Thought, One Mala Bead",
+    "subtitle": "Every Bead a Meditation",
+    "cta_primary": "Begin",
+    "cta_secondary": "Browse"
+  },
+  "steps": {
+    "title": "Choose",
+    "step1_title": "Choose",
+    "step1_desc": "Select from natural wood, crystal, and agate — feel the warmth and energy of each material",
+    "step2_title": "Match",
+    "step2_desc": "Freely combine spacer beads, tassels, and pendants to tell your story",
+    "step3_title": "Complete",
+    "step3_desc": "Preview your mala in 3D, then our artisans handcraft it for you"
+  },
+  "featured": {
+    "title": "View",
+    "view_all": "View all →",
+    "product1_name": "Bodhi",
+    "product1_sub": "108 Mala",
+    "product2_name": "Red Sandalwood",
+    "product2_sub": "108 Mala",
+    "product3_name": "Crystal",
+    "product3_sub": "108 Mala",
+    "product4_name": "Agate",
+    "product4_sub": "108 Mala"
+  },
+  "materials": {
+    "title": "Quality",
+    "mat1_name": "Red Sandalwood",
+    "mat1_english": "Red Sandalwood",
+    "mat1_desc1": "Harvested from Southeast Asia, dense and hardy",
+    "mat1_desc2": "Fine grain with a deep copper hue",
+    "mat1_desc3": "Hand-polished to 2000 grit by master craftsmen",
+    "mat1_desc4": "Smooth and warm to the touch, like jade",
+    "mat1_verse": "Every bead, a breath",
+    "mat2_name": "Clear Quartz",
+    "mat2_english": "Clear Quartz",
+    "mat2_desc1": "Naturally formed in hexagonal crystals",
+    "mat2_desc2": "Translucent as ice, with natural fissures",
+    "mat2_desc3": "Pure energy that aids meditation",
+    "mat2_verse": "Every bead, an awakening"
+  },
+  "story": {
+    "title": "Stillness",
+    "line1": "Every mala is a testament to practice.",
+    "line2": "The very act of hand-polishing each bead is a form of cultivation.",
+    "line3": "From selection to stringing, from polishing to blessing — every step is taken with awareness and reverence.",
+    "verse": "Master things, not be mastered by them",
+    "cta": "Journey inward"
+  },
+  "footer": {
+    "copyright": "All rights reserved"
+  },
+  "common": {
+    "loading": "Loading..."
+  }
+}

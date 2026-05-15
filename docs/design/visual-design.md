@@ -130,7 +130,7 @@ background:
 
 ```
 ✅ 允许使用金色的场景：
-  - 品牌标志 NIAN·ZHU
+  - 品牌名 Kongxing Mala / 空性念珠
   - CTA 按钮 hover 态
   - 链接 hover 态
 
@@ -170,10 +170,10 @@ background:
 ### 使用规范
 
 - **标题**：`font-serif`（Noto Serif SC / Cormorant Garamond）
-- **正文**：`font-[300]` 细字重
-- **辅助信息**：`font-[200]` + `--color-text-muted`
+- **正文**：`font-[400]` 清晰可读
+- **辅助信息**：`font-[300]` + `--color-text-muted`
 - **英文品牌名**：`uppercase tracking-[0.15em]`
-- **导航链接**：`uppercase tracking-[0.1em] font-[300]`
+- **导航链接**：`uppercase tracking-[0.1em] font-[400]`
 
 ---
 

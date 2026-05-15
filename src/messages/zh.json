@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "brand": "空性念珠",
+    "customize": "定制设计",
+    "shop": "商城",
+    "encyclopedia": "百科",
+    "about": "关于"
+  },
+  "hero": {
+    "brand": "空性念珠",
+    "slogan": "一念清净 一串菩提",
+    "subtitle": "Every Bead a Meditation",
+    "cta_primary": "启程",
+    "cta_secondary": "观览"
+  },
+  "steps": {
+    "title": "择",
+    "step1_title": "择",
+    "step1_desc": "从天然木材、水晶、玛瑙中挑选你心仪的珠材，感受不同材质的温度与能量",
+    "step2_title": "合",
+    "step2_desc": "隔珠、流苏、坠饰自由搭配，让每颗配饰都诉说你的心意",
+    "step3_title": "成",
+    "step3_desc": "3D 预览你的专属念珠，确认即开始由匠人亲手打磨制作"
+  },
+  "featured": {
+    "title": "观",
+    "view_all": "观览全部 →",
+    "product1_name": "菩提",
+    "product1_sub": "108 念珠",
+    "product2_name": "紫檀",
+    "product2_sub": "108 念珠",
+    "product3_name": "水晶",
+    "product3_sub": "108 念珠",
+    "product4_name": "玛瑙",
+    "product4_sub": "108 念珠"
+  },
+  "materials": {
+    "title": "质",
+    "mat1_name": "紫檀",
+    "mat1_english": "Red Sandalwood",
+    "mat1_desc1": "产于东南亚，质地坚硬",
+    "mat1_desc2": "纹理细腻，色如紫铜",
+    "mat1_desc3": "匠人手工打磨至 2000 目",
+    "mat1_desc4": "触感温润如玉",
+    "mat1_verse": "每一颗珠，都是一次呼吸",
+    "mat2_name": "白水晶",
+    "mat2_english": "Clear Quartz",
+    "mat2_desc1": "自然形成，六方晶系",
+    "mat2_desc2": "通透如冰，内含天然冰裂",
+    "mat2_desc3": "能量纯粹，助益冥想",
+    "mat2_verse": "每一颗珠，都是一次觉知"
+  },
+  "story": {
+    "title": "寂",
+    "line1": "每一条念珠，都是一次修行的见证。",
+    "line2": "我们用手工打磨每一颗珠的过程，本身就是一种修习。",
+    "line3": "从选材到穿配，从打磨到加持，每一步都带着觉知与敬意。",
+    "verse": "不为物役，不以物喜",
+    "cta": "静心之旅"
+  },
+  "footer": {
+    "copyright": "All rights reserved"
+  },
+  "common": {
+    "loading": "加载中..."
+  }
+}

@@ -2,7 +2,7 @@
 
 > 本规则文件在每次对话中自动生效。详细参考文档见 `.trae/skills/` 下的对应 SKILL.md。
 >
-> 品牌体系：**空性念珠 (Kongxing Mala)** | 品牌标志：**NIAN·ZHU** | 设计体系：**空性设计 (Kongxing Design)**
+> 品牌体系：**空性念珠 (Kongxing Mala)** | 设计体系：**空性设计 (Kongxing Design)**
 
 ---
 
@@ -199,7 +199,7 @@ const DURATION_SLOW = 600;
 | 静 | 不使用粒子 Canvas、旋转光效、水波纹等动效 |
 | 空 | 区块间距 `py-32`，内容最大宽度 `1080px` |
 | 寂 | 金色仅用于 Logo 和 CTA hover，其余使用辅助色 |
-| 简 | 导航不超过 3 项，Footer 不超过三行 |
+| 简 | 导航不超过 4 项，Footer 不超过三行 |
 | 质 | 使用 CSS 变量引用色值，不硬编码颜色 |
 | 慢 | 所有过渡动画使用 `duration-600`，缓动 `ease-out` |
 
@@ -208,7 +208,6 @@ const DURATION_SLOW = 600;
 统一使用 `· 字 ·` 格式：
 
 ```tsx
-// 区块标题使用此格式
 <h2 className="font-serif text-2xl tracking-[0.15em] text-[var(--color-text-muted)]">
   · 观 ·
 </h2>

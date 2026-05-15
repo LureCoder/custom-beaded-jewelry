@@ -142,15 +142,15 @@
 
 ```
 ┌───────────────────────────────────────────────┐
-│  NIAN·ZHU             商城 · 百科 · 关于       │
+│  空性念珠                   商城 · 百科 · 关于       │
 │                                                │
 └───────────────────────────────────────────────┘
 ```
 
 | 元素 | 位置 | 规格 |
 |------|------|------|
-| 品牌名 | 左侧 | `NIAN·ZHU`，`font-serif`，`text-sm tracking-[0.15em] uppercase` |
-| 导航链接 | 右侧 | 3项，`font-[300]`，`text-xs tracking-[0.1em] uppercase` |
+| 品牌名 | 左侧 | `空性念珠`，`font-[400]`，`text-sm tracking-[0.15em] uppercase` |
+| 导航链接 | 右侧 | 3项，`font-[400]`，`text-sm tracking-[0.1em] uppercase` |
 | 链接分隔 | 链接间 | `·` 点号，`--color-text-muted` |
 | CTA 按钮 | 不设 | Hero 区才是转化主战场 |
 | 主题切换 | 不设 | 跟随系统主题 |
@@ -198,7 +198,7 @@
 │                                                         │
 │                                                         │
 │                                                         │
-│                     NIAN·ZHU                             │  font-serif, text-xs, tracking-[0.2em]
+│                     Kongxing Mala / 空性念珠                          │  font-serif, text-xs, tracking-[0.2em]
 │                                                         │
 │                  一念清净 一串菩提                        │  font-serif, text-5xl md:text-7xl, leading-tight
 │                                                         │
@@ -225,7 +225,7 @@
 
 | 元素 | 规格 |
 |------|------|
-| 英文品牌 | `NIAN·ZHU`，`font-serif`，`text-xs tracking-[0.2em] uppercase`，`--color-text-muted`，`mb-6` |
+| 品牌名 | `Kongxing Mala / 空性念珠`，`font-serif`，`text-xs tracking-[0.2em] uppercase`，`--color-text-muted`，`mb-6` |
 | 主 Slogan | `一念清净 一串菩提`，`font-serif`，`text-5xl md:text-7xl`，`leading-tight`，`tracking-wide` |
 | 英文副标 | `Every Bead a Meditation`，`font-serif italic`，`text-lg md:text-xl`，`--color-text-secondary`，`mt-4` |
 | 中英文间距 | `gap-4`，英文副标有足够呼吸感 |
@@ -497,13 +497,13 @@
 ```
 ┌──────────────────────────────────────────────┐
 │                                              │
-│    NIAN·ZHU                                   │  font-serif, text-sm, tracking-[0.15em]
+│   空性念珠                               │  font-[400], text-sm, tracking-[0.15em]
 │                                              │
-│    商城  ·  百科  ·  关于                     │  font-[300], text-xs, tracking-[0.1em]
+│    商城 · 百科 · 关于                     │  font-[400], text-sm, tracking-[0.1em]
 │                                              │
 │    ———————————————                            │  border-top
 │                                              │
-│    © 2026 NIAN·ZHU  ·  All rights reserved  │  font-[200], text-xs, --color-text-muted
+│    © 2026 Kongxing Mala ·  All rights reserved  │  font-[300], text-xs, --color-text-muted
 │                                              │
 └──────────────────────────────────────────────┘
 ```

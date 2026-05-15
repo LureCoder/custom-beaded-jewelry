@@ -2,9 +2,11 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 function HomeHero() {
+  const t = useTranslations("hero");
   const nextRef = useRef<HTMLDivElement>(null);
 
   const scrollToNext = () => {
@@ -23,19 +25,19 @@ function HomeHero() {
       <div className="relative z-10 flex flex-col items-center">
         <ScrollReveal direction="up" delay={0}>
           <p className="font-serif text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
-            NIAN·ZHU
+            {t("brand")}
           </p>
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={150}>
           <h1 className="font-serif text-5xl md:text-7xl leading-tight tracking-wide text-[var(--color-text-primary)]">
-            一念清净 一串菩提
+            {t("slogan")}
           </h1>
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={300}>
           <p className="mt-4 font-serif italic text-lg md:text-xl text-[var(--color-text-secondary)]">
-            Every Bead a Meditation
+            {t("subtitle")}
           </p>
         </ScrollReveal>
 
@@ -45,13 +47,13 @@ function HomeHero() {
               href="/customize"
               className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg-primary)] transition-all duration-600"
             >
-              启程
+              {t("cta_primary")}
             </a>
             <a
               href="/shop"
               className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-600"
             >
-              观览
+              {t("cta_secondary")}
             </a>
           </div>
         </ScrollReveal>
