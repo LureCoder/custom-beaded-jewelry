@@ -1,3 +1,4 @@
+// constants.ts: 品牌常量与站点配置 — SITE_CONFIG
 export const SITE_CONFIG = {
   brandZh: "空性念珠",
   brandEn: "Kongxing Mala",

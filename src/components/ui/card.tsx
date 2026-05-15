@@ -1,3 +1,4 @@
+// card.tsx: 卡片容器组件 — 4 变体 / 7 子组件
 import {
   HTMLAttributes,
   createContext,

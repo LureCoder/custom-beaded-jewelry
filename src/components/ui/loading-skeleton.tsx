@@ -1,3 +1,4 @@
+// loading-skeleton.tsx: 骨架屏组件 — 3 变体 Text/Card/Image
 import { HTMLAttributes, forwardRef } from "react";
 
 interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {

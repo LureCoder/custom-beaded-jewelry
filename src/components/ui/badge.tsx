@@ -1,3 +1,4 @@
+// badge.tsx: 标签组件 — 3 变体 / uppercase / duration-600
 import { HTMLAttributes, forwardRef } from "react";
 
 type BadgeVariant = "default" | "accent" | "outline";

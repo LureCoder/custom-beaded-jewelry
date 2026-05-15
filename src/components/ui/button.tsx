@@ -1,3 +1,4 @@
+// button.tsx: 核心按钮组件 — 5 变体 / 幽灵按钮风格 / duration-600
 "use client";
 
 import { Button as ButtonPrimitive } from "@base-ui/react/button"

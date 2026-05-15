@@ -1,4 +1,16 @@
+// hero.tsx: 首页 Hero 区域 — 品牌 Slogan 和双 CTA
+"use client";
+
+import { useRef } from "react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
+
 function HomeHero() {
+  const nextRef = useRef<HTMLDivElement>(null);
+
+  const scrollToNext = () => {
+    nextRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
       <div
@@ -9,35 +21,43 @@ function HomeHero() {
       />
 
       <div className="relative z-10 flex flex-col items-center">
-        <p className="font-serif text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
-          NIAN·ZHU
-        </p>
+        <ScrollReveal direction="up" delay={0}>
+          <p className="font-serif text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
+            NIAN·ZHU
+          </p>
+        </ScrollReveal>
 
-        <h1 className="font-serif text-5xl md:text-7xl leading-tight tracking-wide text-[var(--color-text-primary)]">
-          一念清净 一串菩提
-        </h1>
+        <ScrollReveal direction="up" delay={150}>
+          <h1 className="font-serif text-5xl md:text-7xl leading-tight tracking-wide text-[var(--color-text-primary)]">
+            一念清净 一串菩提
+          </h1>
+        </ScrollReveal>
 
-        <p className="mt-4 font-serif italic text-lg md:text-xl text-[var(--color-text-secondary)]">
-          Every Bead a Meditation
-        </p>
+        <ScrollReveal direction="up" delay={300}>
+          <p className="mt-4 font-serif italic text-lg md:text-xl text-[var(--color-text-secondary)]">
+            Every Bead a Meditation
+          </p>
+        </ScrollReveal>
 
-        <div className="mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          <a
-            href="/customize"
-            className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg-primary)] transition-all duration-500"
-          >
-            启程
-          </a>
-          <a
-            href="/shop"
-            className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-500"
-          >
-            观览
-          </a>
-        </div>
+        <ScrollReveal direction="up" delay={450}>
+          <div className="mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <a
+              href="/customize"
+              className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg-primary)] transition-all duration-600"
+            >
+              启程
+            </a>
+            <a
+              href="/shop"
+              className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-600"
+            >
+              观览
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer" onClick={scrollToNext}>
         <svg
           width="16"
           height="16"
@@ -50,6 +70,8 @@ function HomeHero() {
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>
       </div>
+
+      <div ref={nextRef} className="absolute bottom-0" />
 
       <style>{`
         @keyframes hero-scroll {

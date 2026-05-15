@@ -1,3 +1,4 @@
+// section-title.tsx: ·字· 格式区块标题 — 包含装饰线
 import { HTMLAttributes, forwardRef } from "react";
 
 interface SectionTitleProps extends HTMLAttributes<HTMLDivElement> {

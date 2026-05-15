@@ -1,3 +1,4 @@
+// navigation.tsx: 全局导航栏 — 品牌标志 NIAN·ZHU 和 3 项导航链接
 "use client";
 
 import { useState, useEffect } from "react";

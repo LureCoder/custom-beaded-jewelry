@@ -1,3 +1,4 @@
+// footer.tsx: 全局页脚 — 品牌名 / 导航 / 版权三行极简布局
 import Link from "next/link";
 
 function Footer() {

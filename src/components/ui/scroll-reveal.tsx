@@ -1,3 +1,4 @@
+// scroll-reveal.tsx: 滚动入场动画 — 800ms 慢动画，支持方向与延迟
 "use client";
 
 import { motion } from "framer-motion";
