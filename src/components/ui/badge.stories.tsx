@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "默认标签",
+    children: "默认",
     variant: "default",
   },
 };
@@ -38,4 +38,14 @@ export const Outline: Story = {
     children: "限量",
     variant: "outline",
   },
+};
+
+export const AllVariants: StoryObj = {
+  render: () => (
+    <div className="flex items-center gap-4 p-6 bg-[var(--color-bg-primary)] rounded-[var(--radius-lg)]">
+      <Badge variant="default">默认</Badge>
+      <Badge variant="accent">精选</Badge>
+      <Badge variant="outline">限量</Badge>
+    </div>
+  ),
 };

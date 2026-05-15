@@ -50,4 +50,3 @@ function SkeletonCard({ count = 1 }: SkeletonCardProps) {
 }
 
 export { Skeleton, SkeletonCard };
-export type { SkeletonProps };

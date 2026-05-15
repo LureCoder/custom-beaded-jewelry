@@ -11,10 +11,10 @@ interface ScrollRevealProps {
 }
 
 const directionVariants = {
-  up: { y: 40 },
-  down: { y: -40 },
-  left: { x: -40 },
-  right: { x: 40 },
+  up: { y: 12 },
+  down: { y: -12 },
+  left: { x: -12 },
+  right: { x: 12 },
   none: {},
 };
 
@@ -37,9 +37,9 @@ function ScrollReveal({
       }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{
-        duration: 0.6,
+        duration: 0.8,
         delay,
-        ease: [0.4, 0, 0.2, 1],
+        ease: [0.25, 0.1, 0.25, 1],
       }}
       className={className}
     >
@@ -49,4 +49,3 @@ function ScrollReveal({
 }
 
 export { ScrollReveal };
-export type { ScrollRevealProps };

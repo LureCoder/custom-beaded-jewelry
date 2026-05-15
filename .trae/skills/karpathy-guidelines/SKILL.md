@@ -4,6 +4,9 @@ description: Behavioral guidelines to reduce common LLM coding mistakes. Use whe
 license: MIT
 ---
 
+> **核心原则已纳入 `.trae/rules/project_rules.md` 的「AI 行为准则」章节，每次对话自动生效。**
+> 本文档为详细参考，包含完整解释和示例。
+
 # Karpathy Guidelines
 
 Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.

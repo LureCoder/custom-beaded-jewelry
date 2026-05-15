@@ -3,6 +3,9 @@ name: "component-storybook"
 description: "Mandates that every UI component must have a corresponding Storybook story file (.stories.tsx). Invoke when creating new components, reviewing component PRs, or asked about component documentation/testing."
 ---
 
+> **核心要求已纳入 `.trae/rules/project_rules.md` 的规则 #1，每次对话自动生效。**
+> 本文档为详细参考，包含模板和示例。
+
 # Component Storybook Rule
 
 Every UI component in `src/components/` **must** have a corresponding Storybook story file.

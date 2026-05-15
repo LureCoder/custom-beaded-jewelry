@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
-import { ShoppingCart, ArrowRight, Heart, Settings } from "lucide-react";
 
 const meta = {
   title: "ui/Button",
@@ -12,11 +11,11 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "secondary", "outline", "ghost", "gradient", "glass", "destructive", "link"],
+      options: ["default", "secondary", "outline", "ghost", "destructive"],
     },
     size: {
       control: "select",
-      options: ["default", "xs", "sm", "lg", "xl", "icon", "icon-xs", "icon-sm", "icon-lg", "icon-xl"],
+      options: ["default", "sm", "lg", "xl", "icon", "icon-sm", "icon-lg"],
     },
     disabled: { control: "boolean" },
   },
@@ -27,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "开始定制",
+    children: "启程",
     variant: "default",
     size: "default",
   },
@@ -35,7 +34,7 @@ export const Default: Story = {
 
 export const Secondary: Story = {
   args: {
-    children: "浏览成品",
+    children: "观览",
     variant: "secondary",
     size: "default",
   },
@@ -57,93 +56,47 @@ export const Ghost: Story = {
   },
 };
 
-export const Gradient: Story = {
-  args: {
-    children: "立即购买",
-    variant: "gradient",
-    size: "default",
-  },
-};
-
-export const Glass: Story = {
-  args: {
-    children: "毛玻璃按钮",
-    variant: "glass",
-    size: "default",
-  },
-};
-
-export const Destructive: Story = {
-  args: {
-    children: "删除项目",
-    variant: "destructive",
-    size: "default",
-  },
-};
-
-export const Link: Story = {
-  args: {
-    children: "了解更多",
-    variant: "link",
-    size: "default",
-  },
-};
-
 export const AllVariants: StoryObj = {
   render: () => (
-    <div className="flex flex-col gap-4 w-[400px]">
-      <Button variant="default" size="lg">默认按钮 — 琥珀橙</Button>
-      <Button variant="secondary" size="lg">次要按钮 — 浅橙底</Button>
-      <Button variant="outline" size="lg">描边按钮</Button>
-      <Button variant="ghost" size="lg">幽灵按钮</Button>
-      <Button variant="gradient" size="lg">渐变按钮</Button>
-      <Button variant="glass" size="lg">毛玻璃按钮</Button>
-      <Button variant="destructive" size="lg">危险按钮</Button>
-      <Button variant="link" size="lg">链接按钮</Button>
+    <div className="flex flex-col gap-4 w-[400px] p-6 bg-[var(--color-bg-primary)] rounded-[var(--radius-lg)]">
+      <div className="flex items-center justify-between">
+        <span className="font-[300] text-xs text-[var(--color-text-muted)] tracking-[0.1em] uppercase">default</span>
+        <Button variant="default">启程</Button>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="font-[300] text-xs text-[var(--color-text-muted)] tracking-[0.1em] uppercase">secondary</span>
+        <Button variant="secondary">观览</Button>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="font-[300] text-xs text-[var(--color-text-muted)] tracking-[0.1em] uppercase">outline</span>
+        <Button variant="outline">查看详情</Button>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="font-[300] text-xs text-[var(--color-text-muted)] tracking-[0.1em] uppercase">ghost</span>
+        <Button variant="ghost">取消</Button>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="font-[300] text-xs text-[var(--color-text-muted)] tracking-[0.1em] uppercase">destructive</span>
+        <Button variant="destructive">删除</Button>
+      </div>
     </div>
   ),
 };
 
 export const Sizes: StoryObj = {
   render: () => (
-    <div className="flex items-end gap-3">
-      <Button size="xs">XS</Button>
-      <Button size="sm">SM</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">LG</Button>
-      <Button size="xl">XL</Button>
-    </div>
-  ),
-};
-
-export const WithIcon: StoryObj = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button>
-        <ShoppingCart className="size-4" />
-        加入购物车
-      </Button>
-      <Button variant="secondary">
-        下一步
-        <ArrowRight className="size-4" />
-      </Button>
-      <Button variant="outline">
-        <Heart className="size-4" />
-        收藏
-      </Button>
-      <Button variant="ghost" size="icon">
-        <Settings className="size-4" />
-      </Button>
-      <Button variant="gradient" size="icon-lg">
-        <ShoppingCart className="size-5" />
-      </Button>
+    <div className="flex items-end gap-4 p-6 bg-[var(--color-bg-primary)] rounded-[var(--radius-lg)]">
+      <Button variant="default" size="sm">小</Button>
+      <Button variant="default">中</Button>
+      <Button variant="default" size="lg">大</Button>
+      <Button variant="default" size="xl">超大</Button>
     </div>
   ),
 };
 
 export const Disabled: Story = {
   args: {
-    children: "不可用",
+    children: "启程",
     variant: "default",
     disabled: true,
   },

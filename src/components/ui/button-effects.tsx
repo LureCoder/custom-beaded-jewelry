@@ -25,7 +25,7 @@ function ShineButton({ children, className = "", ...props }: EffectBaseProps) {
 function LiftButton({ children, className = "", ...props }: EffectBaseProps) {
   return (
     <Button
-      className={`transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--color-glow)] active:translate-y-0 ${className}`}
+      className={`transition-all duration-600 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--color-glow)] active:translate-y-0 ${className}`}
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ function BorderPulseButton({ children, className = "", ...props }: EffectBasePro
   return (
     <Button
       variant="outline"
-      className={`transition-all duration-300 hover:animate-[border-pulse_2s_ease-in-out_infinite] ${className}`}
+      className={`transition-all duration-600 hover:animate-[border-pulse_2s_ease-in-out_infinite] ${className}`}
       {...props}
     >
       {children}
@@ -74,10 +74,10 @@ function GlowRingButton({ children, className = "", ...props }: EffectBaseProps)
       className={`relative group ${className}`}
       {...props}
     >
-      <span className="relative z-10 group-hover:text-[var(--color-accent)] transition-colors duration-300">
+      <span className="relative z-10 group-hover:text-[var(--color-accent)] transition-colors duration-600">
         {children}
       </span>
-      <span className="absolute -inset-1 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+      <span className="absolute -inset-1 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-600 pointer-events-none">
         <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-[var(--color-accent)] to-transparent blur-sm animate-[glow-rotate_3s_linear_infinite]" style={{ maskImage: "linear-gradient(to right, transparent 20%, black 50%, transparent 80%)" } as React.CSSProperties} />
       </span>
     </Button>
@@ -91,8 +91,8 @@ function SlideFillButton({ children, className = "", ...props }: EffectBaseProps
       className={`relative overflow-hidden group border-[var(--color-border)] hover:border-transparent ${className}`}
       {...props}
     >
-      <span className="absolute inset-0 bg-[var(--color-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center" />
-      <span className="relative z-10 group-hover:text-white transition-colors duration-500">
+      <span className="absolute inset-0 bg-[var(--color-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-600 ease-out origin-center" />
+      <span className="relative z-10 group-hover:text-white transition-colors duration-600">
         {children}
       </span>
     </Button>
@@ -102,7 +102,7 @@ function SlideFillButton({ children, className = "", ...props }: EffectBaseProps
 function RippleBurstButton({ children, className = "", ...props }: EffectBaseProps) {
   return (
     <Button
-      variant="gradient"
+      variant="default"
       className={`relative overflow-hidden group ${className}`}
       {...props}
     >
@@ -134,7 +134,7 @@ function BorderFlowButton({ children, className = "", ...props }: EffectBaseProp
           fill="none"
           stroke="url(#border-flow-gradient)"
           strokeWidth="0.8"
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-[border-flow-svg_3s_linear_infinite]"
+          className="opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-[border-flow-svg_3s_linear_infinite]"
           style={{
             strokeDasharray: "20 280",
             strokeDashoffset: "0",
@@ -150,7 +150,7 @@ function BorderFlowButton({ children, className = "", ...props }: EffectBaseProp
           fill="none"
           stroke="url(#border-flow-gradient)"
           strokeWidth="0.8"
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-[border-flow-svg_3s_linear_infinite]"
+          className="opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-[border-flow-svg_3s_linear_infinite]"
           style={{
             strokeDasharray: "20 280",
             strokeDashoffset: "150",
@@ -168,7 +168,7 @@ function BorderFlowButton({ children, className = "", ...props }: EffectBaseProp
       </svg>
       <Button
         variant="outline"
-        className={`relative transition-all duration-300 group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/40 ${className}`}
+        className={`relative transition-all duration-600 group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/40 ${className}`}
         {...props}
       >
         {children}
