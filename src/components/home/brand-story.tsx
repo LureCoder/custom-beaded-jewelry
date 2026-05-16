@@ -8,7 +8,7 @@ function HomeBrandStory() {
   const t = useTranslations("story");
 
   return (
-    <section className="py-24 bg-[var(--color-bg-secondary)]">
+    <section className="py-20 md:py-24 bg-[var(--color-bg-secondary)]">
       <div className="max-w-[600px] mx-auto px-6 text-center">
         <ScrollReveal direction="up" delay={0}>
           <div className="w-8 h-px bg-[var(--color-border)] mx-auto mb-4" />
@@ -38,7 +38,7 @@ function HomeBrandStory() {
           <div className="mt-10">
             <a
               href="/customize"
-              className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-600"
+              className="inline-flex items-center justify-center px-8 py-3 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-[border-color,color] duration-600"
             >
               {t("cta")}
             </a>

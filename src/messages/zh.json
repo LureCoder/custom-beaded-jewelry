@@ -25,14 +25,12 @@
   "featured": {
     "title": "观",
     "view_all": "观览全部 →",
-    "product1_name": "菩提",
+    "product1_name": "怀业",
     "product1_sub": "108 念珠",
-    "product2_name": "紫檀",
+    "product2_name": "库克",
     "product2_sub": "108 念珠",
-    "product3_name": "水晶",
-    "product3_sub": "108 念珠",
-    "product4_name": "玛瑙",
-    "product4_sub": "108 念珠"
+    "product3_name": "羊脂玉",
+    "product3_sub": "108 念珠"
   },
   "materials": {
     "title": "质",
@@ -62,6 +60,7 @@
     "copyright": "All rights reserved"
   },
   "common": {
-    "loading": "加载中..."
+    "loading": "加载中...",
+    "skip_to_content": "跳转到主要内容"
   }
 }

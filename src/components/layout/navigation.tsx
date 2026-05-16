@@ -1,7 +1,7 @@
 // navigation.tsx: 全局导航栏 — 品牌名 / 导航链接 / 当前页高亮 / 磨砂玻璃背景
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/routing";
@@ -9,16 +9,9 @@ import { ThemeSwitcher } from "@/components/shared/theme-switcher";
 import { LocaleSwitcher } from "@/components/shared/locale-switcher";
 
 function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("nav");
   const pathname = usePathname();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const NAV_LINKS = [
     { href: "/customize", label: t("customize") },
@@ -30,17 +23,7 @@ function Navigation() {
   const isActive = (href: string) => pathname.startsWith(href);
 
   return (
-    <header
-      className={`
-        fixed top-0 left-0 right-0 z-50
-        transition-all duration-600 ease-out
-        ${
-          scrolled
-            ? "bg-[var(--color-bg-glass)] backdrop-blur-[12px] border-b border-[var(--color-border)]"
-            : "bg-transparent"
-        }
-      `}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-glass)] backdrop-blur-[12px] border-b border-[var(--color-border)]">
       <nav className="max-w-[1080px] mx-auto px-6 md:px-12 lg:px-24 h-14 flex items-center justify-between">
         <Link
           href="/"
@@ -50,16 +33,16 @@ function Navigation() {
         </Link>
 
         <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-4 text-sm tracking-[0.1em] uppercase font-[400] text-[var(--color-text-muted)]">
+          <div className="flex items-center gap-4 text-sm tracking-[0.1em] uppercase font-[400] text-[var(--color-text-secondary)]">
             {NAV_LINKS.map((link, i) => (
               <span key={link.href} className="flex items-center gap-4">
-                {i > 0 && <span className="text-[var(--color-text-muted)]">·</span>}
+                {i > 0 && <span className="text-[var(--color-text-secondary)]">·</span>}
                 <Link
                   href={link.href}
                   className={`transition-colors duration-600 ${
                     isActive(link.href)
                       ? "text-[var(--color-accent)]"
-                      : "text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
                   }`}
                 >
                   {link.label}

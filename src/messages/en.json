@@ -25,14 +25,12 @@
   "featured": {
     "title": "View",
     "view_all": "View all →",
-    "product1_name": "Bodhi",
+    "product1_name": "Huaiye",
     "product1_sub": "108 Mala",
-    "product2_name": "Red Sandalwood",
+    "product2_name": "Kuke",
     "product2_sub": "108 Mala",
-    "product3_name": "Crystal",
-    "product3_sub": "108 Mala",
-    "product4_name": "Agate",
-    "product4_sub": "108 Mala"
+    "product3_name": "Mutton Fat Jade",
+    "product3_sub": "108 Mala"
   },
   "materials": {
     "title": "Quality",
@@ -62,6 +60,7 @@
     "copyright": "All rights reserved"
   },
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "skip_to_content": "Skip to main content"
   }
 }

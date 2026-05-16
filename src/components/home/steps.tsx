@@ -14,7 +14,7 @@ function HomeSteps() {
   ];
 
   return (
-    <section className="py-32 bg-[var(--color-bg-primary)]">
+    <section className="py-20 md:py-32 bg-[var(--color-bg-primary)]">
       <div className="max-w-[1080px] mx-auto px-6 md:px-12 lg:px-24">
         <ScrollReveal direction="up" delay={0}>
           <div className="text-center">

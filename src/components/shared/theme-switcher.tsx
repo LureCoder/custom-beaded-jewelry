@@ -18,7 +18,7 @@ function ThemeSwitcher() {
     <button
       type="button"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors duration-600 cursor-pointer"
+      className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors duration-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)] rounded-sm"
       aria-label={theme === "dark" ? "切换浅色主题" : "切换深色主题"}
     >
       {theme === "dark" ? (
