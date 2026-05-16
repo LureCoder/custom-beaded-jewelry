@@ -22,14 +22,6 @@ export interface NavLink {
   label: string;
 }
 
-export interface Material {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  category: "wood" | "crystal" | "agate" | "bodhi" | "other";
-}
-
 export interface CartItem {
   productId: string;
   name: string;

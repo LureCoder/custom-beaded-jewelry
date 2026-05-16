@@ -1,0 +1,126 @@
+{
+  "category": "crystal",
+  "label": {
+    "zh": "水晶类",
+    "en": "Crystal"
+  },
+  "materials": {
+    "white-crystal": {
+      "name": {
+        "zh": "白水晶",
+        "en": "White Crystal"
+      },
+      "sizes": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "sizeUnit": "mm",
+      "thumbnail": "white-crystal.png",
+      "texture": "crystal.jpg",
+      "photos": [
+        {
+          "path": "white-crystal-1.jpg",
+          "description": {
+            "zh": "white-crystal 实物图",
+            "en": "white-crystal Photo"
+          }
+        },
+        {
+          "path": "white-crystal-2.jpg",
+          "description": {
+            "zh": "white-crystal 实物图",
+            "en": "white-crystal Photo"
+          }
+        }
+      ],
+      "properties": {
+        "origin": "巴西",
+        "energy": "净化"
+      },
+      "pricing": {
+        "basePrice": 12,
+        "pricePerMm": 0.8,
+        "currency": "CNY"
+      },
+      "care": [
+        "避免碰撞",
+        "定期消磁",
+        "远离化学品"
+      ]
+    },
+    "purple-crystal": {
+      "name": {
+        "zh": "紫水晶",
+        "en": "Purple Crystal"
+      },
+      "sizes": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "sizeUnit": "mm",
+      "thumbnail": "purple-crystal.png",
+      "texture": "crystal.jpg",
+      "photos": [
+        {
+          "path": "purple-crystal-1.jpg",
+          "description": {
+            "zh": "purple-crystal 实物图",
+            "en": "purple-crystal Photo"
+          }
+        }
+      ],
+      "properties": {
+        "origin": "乌拉圭",
+        "energy": "灵性"
+      },
+      "pricing": {
+        "basePrice": 15,
+        "pricePerMm": 1.0,
+        "currency": "CNY"
+      },
+      "care": [
+        "避免暴晒褪色",
+        "定期消磁",
+        "轻拿轻放"
+      ]
+    },
+    "yellow-crystal": {
+      "name": {
+        "zh": "黄水晶",
+        "en": "Yellow Crystal"
+      },
+      "sizes": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "sizeUnit": "mm",
+      "thumbnail": "yellow-crystal.png",
+      "texture": "crystal.jpg",
+      "photos": [
+        {
+          "path": "yellow-crystal-1.png",
+          "description": {
+            "zh": "yellow-crystal 实物图",
+            "en": "yellow-crystal Photo"
+          }
+        }
+      ],
+      "properties": {
+        "origin": "",
+        "energy": ""
+      },
+      "pricing": {
+        "basePrice": 0,
+        "pricePerMm": 0,
+        "currency": "CNY"
+      },
+      "care": []
+    }
+  }
+}

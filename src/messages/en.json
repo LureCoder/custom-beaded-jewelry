@@ -16,7 +16,9 @@
   "new_arrivals": {
     "title": "New",
     "image_alt": "New arrival image",
-    "slide": "Slide"
+    "slide": "Slide",
+    "prev": "Previous",
+    "next": "Next"
   },
   "featured": {
     "title": "View",
@@ -58,5 +60,19 @@
   "common": {
     "loading": "Loading...",
     "skip_to_content": "Skip to main content"
+  },
+  "designer": {
+    "select_material": "· Material ·",
+    "config": "· Configure ·",
+    "bead_count": "Bead Count",
+    "bead_diameter": "Bead Diameter",
+    "accessories": "Accessories",
+    "tassel": "Tassel",
+    "pendant": "Pendant",
+    "counter": "Counter",
+    "total_price": "Total",
+    "save_design": "Save Design",
+    "reset": "Reset",
+    "ar_mode": "AR Try-On"
   }
 }

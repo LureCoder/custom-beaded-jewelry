@@ -4,7 +4,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Navigation } from "@/components/layout/navigation";
-import { Footer } from "@/components/layout/footer";
+import { ConditionalFooter } from "@/components/shared/conditional-footer";
 import { LocalePendingProvider, LocaleTransition } from "@/components/shared/locale-transition";
 
 export async function generateMetadata({
@@ -45,7 +45,7 @@ export default async function LocaleLayout({
         <LocaleTransition>
           <main id="main-content">{children}</main>
         </LocaleTransition>
-        <Footer />
+        <ConditionalFooter />
       </LocalePendingProvider>
     </NextIntlClientProvider>
   );

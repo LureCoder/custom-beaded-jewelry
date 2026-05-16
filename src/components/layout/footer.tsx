@@ -18,7 +18,7 @@ function Footer() {
         </Link>
 
         <div className="mt-4 text-xs tracking-[0.1em] uppercase font-[400] text-[var(--color-text-muted)] flex items-center justify-center gap-3">
-          <Link href="/customize" className="hover:text-[var(--color-accent)] transition-colors duration-500">{t("customize")}</Link>
+          <Link href="/designer" className="hover:text-[var(--color-accent)] transition-colors duration-500">{t("customize")}</Link>
           <span>·</span>
           <Link href="/shop" className="hover:text-[var(--color-accent)] transition-colors duration-500">{t("shop")}</Link>
           <span>·</span>

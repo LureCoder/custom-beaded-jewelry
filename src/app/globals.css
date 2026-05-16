@@ -291,6 +291,21 @@
   }
 }
 
+@keyframes fade-in-slide {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-slide {
+  animation: fade-in-slide 0.3s ease-out forwards;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -300,6 +315,18 @@ body {
   transition: background-color 800ms ease-out, color 800ms ease-out;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+label[for],
+select,
+summary {
+  cursor: pointer;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -352,4 +379,13 @@ h1, h2, h3, h4, h5, h6 {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -14,7 +14,7 @@ function Navigation() {
   const pathname = usePathname();
 
   const NAV_LINKS = [
-    { href: "/customize", label: t("customize") },
+    { href: "/designer", label: t("customize") },
     { href: "/shop", label: t("shop") },
     { href: "/encyclopedia", label: t("encyclopedia") },
     { href: "/about", label: t("about") },

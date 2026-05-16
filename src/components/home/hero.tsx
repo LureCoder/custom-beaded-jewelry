@@ -56,7 +56,7 @@ function HomeHero() {
 
         <div className="mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           <a
-            href="/customize"
+            href="/designer"
             className="inline-flex items-center justify-center px-10 py-3.5 text-sm tracking-[0.1em] uppercase rounded-[var(--radius-md)] border-2 border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg-primary)] transition-[background-color,color,border-color] duration-600"
           >
             {t("cta_primary")}

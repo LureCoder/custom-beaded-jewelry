@@ -16,7 +16,9 @@
   "new_arrivals": {
     "title": "新",
     "image_alt": "新品图片",
-    "slide": "第"
+    "slide": "第",
+    "prev": "上一张",
+    "next": "下一张"
   },
   "featured": {
     "title": "观",
@@ -58,5 +60,19 @@
   "common": {
     "loading": "加载中...",
     "skip_to_content": "跳转到主要内容"
+  },
+  "designer": {
+    "select_material": "· 选材 ·",
+    "config": "· 配置 ·",
+    "bead_count": "珠数",
+    "bead_diameter": "珠子直径",
+    "accessories": "配饰",
+    "tassel": "流苏",
+    "pendant": "吊坠",
+    "counter": "计数器",
+    "total_price": "总计",
+    "save_design": "保存设计",
+    "reset": "重置",
+    "ar_mode": "AR 试戴"
   }
 }
