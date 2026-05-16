@@ -12,20 +12,18 @@ interface DesignerPreview2DProps {
 }
 
 const DISPLAY_COUNT = 36;
-const OVERLAP_COUNT = 12;
 const BEAD_SIZE = 40;
 
-function generateRingPositions(total: number, overlap: number): { x: number; y: number; angle: number }[] {
-  const visible = total + overlap;
-  const positions: { x: number; y: number; angle: number }[] = [];
+function generateRingPositions(total: number): { x: number; y: number }[] {
+  const positions: { x: number; y: number }[] = [];
 
   for (let i = 0; i < total; i++) {
     const t = i / total;
     const angle = t * Math.PI * 2 - Math.PI / 2;
     const radius = 140;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    positions.push({ x, y, angle: angle + Math.PI / 2 });
+    const x = Math.round(Math.cos(angle) * radius);
+    const y = Math.round(Math.sin(angle) * radius);
+    positions.push({ x, y });
   }
 
   return positions;
@@ -47,7 +45,7 @@ export function DesignerPreview2D({ materials }: DesignerPreview2DProps) {
     return null;
   }, [materials, materialId]);
 
-  const ringPositions = useMemo(() => generateRingPositions(DISPLAY_COUNT, OVERLAP_COUNT), []);
+  const ringPositions = useMemo(() => generateRingPositions(DISPLAY_COUNT), []);
 
   const name = material
     ? (locale === 'en' ? material.name.en : material.name.zh)
@@ -70,8 +68,8 @@ export function DesignerPreview2D({ materials }: DesignerPreview2DProps) {
               style={{
                 left: `calc(50% + ${pos.x}px - ${BEAD_SIZE / 2}px)`,
                 top: `calc(50% + ${pos.y}px - ${BEAD_SIZE / 2}px)`,
-                width: BEAD_SIZE,
-                height: BEAD_SIZE,
+                width: `${BEAD_SIZE}px`,
+                height: `${BEAD_SIZE}px`,
                 zIndex: pos.y > 0 ? 10 + Math.round(pos.y) : 1 + Math.round(pos.y),
                 transform: selectedIndex === i ? 'scale(1.3)' : 'scale(1)',
               }}

@@ -22,17 +22,11 @@ function MaterialVariantCard({ id, material, size, isSelected, onSelect }: Mater
   const [showDetail, setShowDetail] = useState(false);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const name = locale === 'en' ? material.name.en : material.name.zh;
 
   useEffect(() => {
     if (isHovered || isDetailHovered) {
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
-        hideTimeoutRef.current = null;
-      }
-      
       if (!showDetail) {
         showTimeoutRef.current = setTimeout(() => {
           setShowDetail(true);
@@ -43,18 +37,13 @@ function MaterialVariantCard({ id, material, size, isSelected, onSelect }: Mater
         clearTimeout(showTimeoutRef.current);
         showTimeoutRef.current = null;
       }
-      
-      hideTimeoutRef.current = setTimeout(() => {
-        setShowDetail(false);
-      }, 1000);
+
+      setShowDetail(false);
     }
 
     return () => {
       if (showTimeoutRef.current) {
         clearTimeout(showTimeoutRef.current);
-      }
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
       }
     };
   }, [isHovered, isDetailHovered, showDetail]);
@@ -172,15 +161,18 @@ function MaterialVariantCard({ id, material, size, isSelected, onSelect }: Mater
 
 interface MaterialPanelClientProps {
   materials: MaterialCategoryConfig[];
+  accessories: MaterialCategoryConfig[];
 }
 
-export function MaterialPanelClient({ materials }: MaterialPanelClientProps) {
+export function MaterialPanelClient({ materials, accessories }: MaterialPanelClientProps) {
   const t = useTranslations('designer');
   const locale = useLocale();
   const materialId = useDesignerStore((state) => state.config.materialId);
   const beadDiameter = useDesignerStore((state) => state.config.bead.diameter);
   const setMaterial = useDesignerStore((state) => state.setMaterial);
   const setBeadDiameter = useDesignerStore((state) => state.setBeadDiameter);
+
+  const [selectedAccessory, setSelectedAccessory] = useState<{ category: string; id: string; size: number } | null>(null);
 
   const handleSelect = (materialId: string, size: number) => {
     setMaterial(materialId);
@@ -215,6 +207,42 @@ export function MaterialPanelClient({ materials }: MaterialPanelClientProps) {
           </div>
         </div>
       ))}
+
+      {accessories.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h3 className="text-sm font-medium text-[var(--color-text-secondary)]">
+            {locale === 'en' ? 'Accessories' : '配件类'}
+          </h3>
+
+          {accessories.map((category) => (
+            <div key={category.category} className="flex flex-col gap-2">
+              <h4 className="text-xs text-[var(--color-text-muted)] tracking-[0.1em]">
+                {locale === 'en' ? category.label.en : category.label.zh}
+              </h4>
+              <div className="grid grid-cols-3 gap-3">
+                {Object.entries(category.materials).map(([accId, accessory]) =>
+                  accessory.sizes.map((size) => (
+                    <MaterialVariantCard
+                      key={`${accId}-${size}`}
+                      id={accId}
+                      material={accessory}
+                      size={size}
+                      isSelected={
+                        selectedAccessory?.category === category.category &&
+                        selectedAccessory?.id === accId &&
+                        selectedAccessory?.size === size
+                      }
+                      onSelect={() =>
+                        setSelectedAccessory({ category: category.category, id: accId, size })
+                      }
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,35 @@
+{
+  "category": "guru-bead",
+  "label": {
+    "zh": "佛头",
+    "en": "Guru Bead"
+  },
+  "materials": {
+    "guru-bead": {
+      "name": {
+        "zh": "佛头珠",
+        "en": "Guru Bead"
+      },
+      "sizes": [
+        10,
+        12,
+        14,
+        16
+      ],
+      "sizeUnit": "mm",
+      "thumbnail": "guru-bead.png",
+      "texture": "",
+      "photos": [],
+      "properties": {
+        "origin": "",
+        "energy": ""
+      },
+      "pricing": {
+        "basePrice": 18,
+        "pricePerMm": 0,
+        "currency": "CNY"
+      },
+      "care": []
+    }
+  }
+}

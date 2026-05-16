@@ -1,0 +1,34 @@
+{
+  "category": "back-cloud",
+  "label": {
+    "zh": "背云",
+    "en": "Back Cloud"
+  },
+  "materials": {
+    "back-cloud": {
+      "name": {
+        "zh": "背云坠",
+        "en": "Back Cloud Pendant"
+      },
+      "sizes": [
+        6,
+        8,
+        10
+      ],
+      "sizeUnit": "mm",
+      "thumbnail": "back-cloud-1.png",
+      "texture": "",
+      "photos": [],
+      "properties": {
+        "origin": "",
+        "energy": ""
+      },
+      "pricing": {
+        "basePrice": 28,
+        "pricePerMm": 0,
+        "currency": "CNY"
+      },
+      "care": []
+    }
+  }
+}

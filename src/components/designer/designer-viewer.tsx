@@ -9,15 +9,16 @@ import type { MaterialCategoryConfig } from '@/lib/get-materials';
 
 interface DesignerViewerProps {
   materials: MaterialCategoryConfig[];
+  accessories: MaterialCategoryConfig[];
 }
 
-export function DesignerViewer({ materials }: DesignerViewerProps) {
+export function DesignerViewer({ materials, accessories }: DesignerViewerProps) {
   return (
     <div className="fixed inset-0 flex flex-col pt-14">
 
       <div className="flex-1 flex flex-col lg:flex-row min-h-0">
         <div className="hidden lg:block w-80 border-r border-[var(--color-border)] overflow-y-auto scrollbar-hide">
-          <MaterialPanelClient materials={materials} />
+          <MaterialPanelClient materials={materials} accessories={accessories} />
         </div>
 
         <div className="flex-1 relative min-h-0">
