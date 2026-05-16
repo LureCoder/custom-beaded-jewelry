@@ -13,14 +13,10 @@
     "cta_primary": "Begin",
     "cta_secondary": "Browse"
   },
-  "steps": {
-    "title": "Choose",
-    "step1_title": "Choose",
-    "step1_desc": "Select from natural wood, crystal, and agate — feel the warmth and energy of each material",
-    "step2_title": "Match",
-    "step2_desc": "Freely combine spacer beads, tassels, and pendants to tell your story",
-    "step3_title": "Complete",
-    "step3_desc": "Preview your mala in 3D, then our artisans handcraft it for you"
+  "new_arrivals": {
+    "title": "New",
+    "image_alt": "New arrival image",
+    "slide": "Slide"
   },
   "featured": {
     "title": "View",

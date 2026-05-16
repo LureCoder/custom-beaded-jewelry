@@ -13,14 +13,10 @@
     "cta_primary": "启程",
     "cta_secondary": "观览"
   },
-  "steps": {
-    "title": "择",
-    "step1_title": "择",
-    "step1_desc": "从天然木材、水晶、玛瑙中挑选你心仪的珠材，感受不同材质的温度与能量",
-    "step2_title": "合",
-    "step2_desc": "隔珠、流苏、坠饰自由搭配，让每颗配饰都诉说你的心意",
-    "step3_title": "成",
-    "step3_desc": "3D 预览你的专属念珠，确认即开始由匠人亲手打磨制作"
+  "new_arrivals": {
+    "title": "新",
+    "image_alt": "新品图片",
+    "slide": "第"
   },
   "featured": {
     "title": "观",
