@@ -91,30 +91,43 @@
 </div>
 
 <script>
+// mala-structure.html: 藏式108念珠完整结构预览图 — Canvas 2D 渲染
+// 绘制环形主体（108主珠+顶珠+腰珠+佛头+佛塔）及悬挂结构（背云+弟子珠+计数器+卡子）
+// 支持 hover 交互查看每个组件的名称和说明，含标注线和图例
+
 (function() {
   const canvas = document.getElementById('mala-canvas');
   const ctx = canvas.getContext('2d');
   const tip = document.getElementById('info-tip');
 
   const W = 900, H = 1050;
-  // ---- Layout Constants ----
+
+  // ============================================================
+  // 布局常量
+  // ============================================================
+  // CX, CY: 环形中心坐标（位于画布上半部，为下方悬挂结构留出空间）
   const CX = 450, CY = 380;
+  // RING_RADIUS: 环形排列的半径（px）
   const RING_RADIUS = 260;
 
-  // ---- Bead Size Hierarchy ----
-  // 佛头 > 顶珠 ≥ 腰珠 > 主珠
+  // ============================================================
+  // 珠子尺寸体系（单位：px）
+  // 尺寸层级：佛头 > 顶珠 ≥ 腰珠 > 主珠
+  // ============================================================
   const SIZES = {
-    main:   4.5,
-    waist:  7,
-    crown:  9,
-    guru:   14,
-    stupa:  6,
-    disciple: 3.5,
-    counter: 3,
-    spacer_disc: 1.5,
+    main:   4.5,    // 主珠（最小）
+    waist:  7,      // 腰珠/节珠
+    crown:  9,      // 顶珠
+    guru:   14,     // 佛头/三通（最大）
+    stupa:  6,      // 佛塔
+    disciple: 3.5,  // 弟子珠（最小）
+    counter: 3,     // 计数器珠
+    spacer_disc: 1.5, // 隔片（最薄）
   };
 
-  // ---- Colors ----
+  // ============================================================
+  // 颜色体系（深色禅意风格，暖金色点缀）
+  // ============================================================
   const COLORS = {
     main:         { base: '#8B7355', light: '#A0896A', dark: '#6B5740', glow: 'rgba(139,115,85,0.15)' },
     mainVar:      ['#8B7355','#7D684B','#927C5E','#816C4E','#887052'],
@@ -127,7 +140,6 @@
     disciple:     { base: '#4A6FA5', light: '#6A8FC5', dark: '#2A4F75' },
     counter:      { base: '#8B7A60', light: '#A09478', dark: '#6B5E48' },
     clip:         { base: '#C8A85C', light: '#E0C87C', dark: '#A0883C' },
-    tassel:       ['#8B1A1A','#6B1010','#AB2828'],
     spacerDisc:   '#A09070',
     string:       'rgba(160,144,112,0.35)',
     label:        '#A09888',
@@ -135,25 +147,33 @@
     labelBg:      'rgba(12,12,10,0.7)',
   };
 
-  // ---- Bead data ----
+  // ============================================================
+  // 念珠数据结构
+  // ============================================================
   const TOTAL_BEADS = 108;
 
-  // Special indices: 顶珠(crown) at 54, 腰珠(waist) at 27 and 81
+  // 特殊珠子索引（0-based）
+  // 顶珠在第54位（环形最顶端）；腰珠在第27、81位（4段均分点）
   const CROWN_INDEX = 54;
   const WAIST_INDICES = [27, 81];
+  // 卡子挂在第7颗主珠后面
+  const CLIP_BEAD_INDEX = 6;
 
   function isWaist(i) { return WAIST_INDICES.includes(i); }
   function isCrown(i) { return i === CROWN_INDEX; }
   function isSpecial(i) { return isWaist(i) || isCrown(i); }
 
-  // ---- Calculate positions ----
+  // ============================================================
+  // 位置计算
+  // ============================================================
+  // 获取第 index 颗珠子的角度
+  // 佛头在底部（π/2），珠子顺时针排列，offset 0.5 步长让首尾间隙对齐佛头
   function getBeadAngle(index) {
-    // Guru bead at bottom (π/2), beads go clockwise
-    // Offset by half step so the gap is at the guru bead
     const guruAngle = Math.PI / 2;
     return guruAngle + (index + 0.5) * 2 * Math.PI / TOTAL_BEADS;
   }
 
+  // 获取第 index 颗珠子的坐标和角度（相对于环形中心）
   function getBeadPosition(index) {
     const angle = getBeadAngle(index);
     return {
@@ -163,7 +183,7 @@
     };
   }
 
-  // ---- Generate all bead data ----
+  // 生成所有108颗珠子的数据数组
   const beads = [];
   for (let i = 0; i < TOTAL_BEADS; i++) {
     const pos = getBeadPosition(i);
@@ -181,7 +201,9 @@
     });
   }
 
-  // ---- Tooltip data ----
+  // ============================================================
+  // hover tooltip 内容
+  // ============================================================
   const COMPONENT_INFO = {
     main: {
       title: '主珠 / 子珠',
@@ -219,19 +241,18 @@
       title: '卡子',
       desc: '活口金属夹，可随意挪动位置。配合计数器使用，每念一圈移动一位。'
     },
-    tassel: {
-      title: '流苏',
-      desc: '佛头下方的丝线/麻绳装饰（可选）。部分藏式念珠不设流苏，追求简洁。'
-    },
     spacerDisc: {
       title: '隔片',
       desc: '珠子之间的薄片，防止珠子直接摩擦，保护珠串。材质常为银、铜、椰壳等。'
     },
   };
 
-  // ---- Drawing Utilities ----
+  // ============================================================
+  // 绘制工具函数
+  // ============================================================
+
+  // 绘制单颗 3D 效果珠子（径向渐变 + 高光 + 阴影）
   function draw3DBead(cx, cy, radius, baseColor, lightColor, darkColor, glowColor) {
-    // Shadow
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx + 1.5, cy + 2, radius, 0, Math.PI * 2);
@@ -239,7 +260,6 @@
     ctx.fill();
     ctx.restore();
 
-    // Base circle
     const grad = ctx.createRadialGradient(cx - radius*0.3, cy - radius*0.3, radius*0.1, cx, cy, radius);
     grad.addColorStop(0, lightColor);
     grad.addColorStop(0.7, baseColor);
@@ -248,7 +268,6 @@
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-
     if (glowColor) {
       ctx.shadowColor = glowColor;
       ctx.shadowBlur = radius * 2;
@@ -256,7 +275,6 @@
     ctx.fillStyle = grad;
     ctx.fill();
 
-    // Highlight
     const hlGrad = ctx.createRadialGradient(cx - radius*0.3, cy - radius*0.35, 0, cx - radius*0.3, cy - radius*0.35, radius*0.6);
     hlGrad.addColorStop(0, 'rgba(255,255,255,0.25)');
     hlGrad.addColorStop(0.5, 'rgba(255,255,255,0.05)');
@@ -266,12 +284,13 @@
     ctx.restore();
   }
 
-  // Use deterministic color from index to avoid flicker on re-render
+  // 根据索引返回确定的颜色（避免每次渲染随机变化导致闪烁）
   function getMainBeadColor(index) {
     const colors = COLORS.mainVar;
     return colors[index % colors.length];
   }
 
+  // 根据珠子类型绘制（含 hover 高亮环）
   function drawBeadWithStyle(cx, cy, size, colorType, highlight, index) {
     const c = COLORS[colorType];
     let base, light, dark, glow;
@@ -280,12 +299,6 @@
       light = '#A0896A';
       dark = '#6B5740';
       glow = highlight ? 'rgba(255,185,0,0.2)' : null;
-    } else if (colorType === 'tassel') {
-      const idx = Math.floor(Math.random() * COLORS.tassel.length);
-      base = COLORS.tassel[idx];
-      light = '#C04040';
-      dark = '#5A1010';
-      glow = null;
     } else {
       base = c.base;
       light = c.light;
@@ -294,7 +307,6 @@
     }
 
     if (highlight) {
-      // Draw highlight ring
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy, size + 2, 0, Math.PI * 2);
@@ -309,13 +321,11 @@
     draw3DBead(cx, cy, size, base, light, dark, glow);
   }
 
+  // 在腰珠两侧绘制隔片（防止珠子摩擦的小薄片）
   function drawSpacerDisc(cx, cy, angle, size) {
-    // Draw thin disc on both sides of a waist bead
-    const discRadius = size + 2;
-    const dist = size + SIZES.spacer_disc;
     for (const side of [-1, 1]) {
-      const dx = Math.cos(angle) * dist * side;
-      const dy = Math.sin(angle) * dist * side;
+      const dx = Math.cos(angle) * (size + SIZES.spacer_disc + size) * side;
+      const dy = Math.sin(angle) * (size + SIZES.spacer_disc + size) * side;
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx + dx, cy + dy, SIZES.spacer_disc, 0, Math.PI * 2);
@@ -325,9 +335,10 @@
     }
   }
 
+  // 绘制佛头/三通（最大颗，含金色边框、三孔标记）
+  // 佛头位于环形底部，连接首尾两颗珠子
   function drawGuruBead(cx, cy) {
     const r = SIZES.guru;
-    // Draw shadow
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx + 2, cy + 3, r, 0, Math.PI * 2);
@@ -335,7 +346,6 @@
     ctx.fill();
     ctx.restore();
 
-    // Base circle with rich gradient
     const grad = ctx.createRadialGradient(cx - r*0.3, cy - r*0.4, 0, cx, cy, r);
     grad.addColorStop(0, '#9B3E28');
     grad.addColorStop(0.4, '#7A2818');
@@ -350,14 +360,12 @@
     ctx.fillStyle = grad;
     ctx.fill();
 
-    // Gold rim
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.strokeStyle = COLORS.guruGold;
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
-    // Highlight
     const hlGrad = ctx.createRadialGradient(cx - r*0.25, cy - r*0.35, 0, cx - r*0.25, cy - r*0.35, r*0.6);
     hlGrad.addColorStop(0, 'rgba(255,200,100,0.3)');
     hlGrad.addColorStop(0.5, 'rgba(255,255,255,0.1)');
@@ -365,7 +373,7 @@
     ctx.fillStyle = hlGrad;
     ctx.fill();
 
-    // Three dots on top (symbolizing three holes, facing ring center)
+    // 顶部三点标记：象征三通的三个孔道，面向环心
     const dotR = 1.5;
     for (const dx of [-3.5, 0, 3.5]) {
       ctx.beginPath();
@@ -375,30 +383,24 @@
     }
     ctx.restore();
 
-    // Draw Stupa (below the guru bead, pointing away from ring)
     drawStupa(cx, cy + r);
   }
 
+  // 绘制佛塔（佛头下方的锥形装饰）
   function drawStupa(cx, cy) {
-    const w = 8;
-    const h = 16;
+    const w = 8, h = 16;
     ctx.save();
-
     ctx.fillStyle = COLORS.stupa;
     ctx.shadowColor = 'rgba(200,168,92,0.2)';
     ctx.shadowBlur = 6;
 
-    // Base (attached to bottom of guru bead)
     ctx.beginPath();
     ctx.rect(cx - w, cy, w * 2, 4);
     ctx.fill();
-
-    // Stepped base
     ctx.beginPath();
     ctx.rect(cx - w * 0.7, cy + 3, w * 1.4, 4);
     ctx.fill();
 
-    // Cone (pointing downward)
     ctx.beginPath();
     ctx.moveTo(cx - w * 0.5, cy + 7);
     ctx.lineTo(cx + w * 0.5, cy + 7);
@@ -408,22 +410,20 @@
     ctx.fillStyle = '#D4B86C';
     ctx.fill();
 
-    // Top ornament (at tip, pointing down)
     ctx.beginPath();
     ctx.arc(cx, cy + h + 6, 2, 0, Math.PI * 2);
     ctx.fillStyle = '#FFD700';
     ctx.fill();
-
     ctx.restore();
   }
 
+  // 绘制背云（佛塔下的椭圆坠饰，起承上启下作用）
   function drawBackCloud(cx, cy) {
     const w = 28, h = 18;
     ctx.save();
     ctx.shadowColor = 'rgba(45,90,58,0.3)';
     ctx.shadowBlur = 12;
 
-    // Oval shape
     ctx.beginPath();
     ctx.ellipse(cx, cy, w, h, 0, 0, Math.PI * 2);
     const grad = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, w);
@@ -433,30 +433,23 @@
     ctx.fillStyle = grad;
     ctx.fill();
 
-    // Border
     ctx.strokeStyle = 'rgba(200,168,92,0.4)';
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Inner decorative pattern
     ctx.beginPath();
     ctx.ellipse(cx, cy, w*0.55, h*0.55, 0, 0, Math.PI * 2);
     ctx.strokeStyle = 'rgba(255,185,0,0.15)';
     ctx.lineWidth = 0.5;
     ctx.stroke();
-
     ctx.restore();
   }
 
+  // 绘制弟子珠（背云下方的两串小珠，用于计数和收尾）
   function drawDiscipleBeads(cx, cy, count, spacing) {
-    // Two groups of beads
     const gap = 16;
     ctx.save();
     for (const side of [-1, 1]) {
-      let prevX = cx + side * gap;
-      let prevY = cy;
-
-      // String line
       ctx.beginPath();
       ctx.moveTo(cx, cy);
       for (let i = 0; i < count; i++) {
@@ -468,14 +461,13 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Beads
       for (let i = 0; i < count; i++) {
         const bx = cx + side * (gap + (i + 0.5) * spacing * 0.15);
         const by = cy + (i + 1) * spacing;
         draw3DBead(bx, by, SIZES.disciple, COLORS.disciple.base, COLORS.disciple.light, COLORS.disciple.dark, 'rgba(74,111,165,0.15)');
       }
     }
-    // Bottom terminator beads (记子留)
+    // 记子留：弟子珠末端的收尾珠
     for (const side of [-1, 1]) {
       const lastY = cy + count * spacing;
       const lastX = cx + side * (gap + (count - 0.5) * spacing * 0.15);
@@ -484,39 +476,33 @@
     ctx.restore();
   }
 
+  // 计算两颗珠子之间的中间角度（用于计数器挂载点）
   function getMidBeadAngle(i1, i2) {
     return (getBeadAngle(i1) + getBeadAngle(i2)) / 2;
   }
 
+  // 绘制计数器（两串10颗小珠，通过折线连接在环形外侧）
+  // 计数器①: 第20-21颗之间（向左折线）
+  // 计数器②: 第88-89颗之间（向右折线）
+  // 结构: 环上挂载点 → 水平折线 → 10颗珠竖直排列
   function drawCounters(cx, cy) {
-    // Two counter strings at specified positions:
-    // Counter ①: between bead 20 and 21 (0-based indices 19, 20) → left side
-    // Counter ②: between bead 88 and 89 (0-based indices 87, 88) → right side
     const counterPositions = [
       { i1: 19, i2: 20, side: -1, label: '①' },
       { i1: 87, i2: 88, side: 1, label: '②' },
     ];
-
     const BEAD_SPACING = 10;
     const HORIZONTAL_OFFSET = 55;
 
     ctx.save();
-
     for (const cp of counterPositions) {
       const midAngle = getMidBeadAngle(cp.i1, cp.i2);
-      // Ring attachment point (between the two beads on the ring)
       const ringX = cx + RING_RADIUS * Math.cos(midAngle);
       const ringY = cy + RING_RADIUS * Math.sin(midAngle);
 
-      // Polyline: ring point → horizontally outward → vertically down
-      // Horizontal elbow point
       const elbowX = ringX + cp.side * HORIZONTAL_OFFSET;
       const elbowY = ringY;
-
-      // Counter top (top of the vertical bead string)
       const counterTopY = elbowY + 10;
 
-      // Draw polyline: ring → horizontal elbow → vertical down
       ctx.beginPath();
       ctx.moveTo(ringX, ringY);
       ctx.lineTo(elbowX, elbowY);
@@ -525,7 +511,6 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Draw the connecting point marker on ring
       ctx.beginPath();
       ctx.arc(ringX, ringY, 2.5, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(200,168,92,0.5)';
@@ -536,29 +521,24 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Vertical string with beads
       ctx.beginPath();
       ctx.moveTo(elbowX, counterTopY);
       for (let i = 0; i < 10; i++) {
-        const by = counterTopY + (i + 1) * BEAD_SPACING;
-        ctx.lineTo(elbowX, by);
+        ctx.lineTo(elbowX, counterTopY + (i + 1) * BEAD_SPACING);
       }
       ctx.strokeStyle = COLORS.string;
       ctx.lineWidth = 0.8;
       ctx.stroke();
 
-      // Counter beads (vertical, hanging down)
       for (let i = 0; i < 10; i++) {
-        const by = counterTopY + (i + 1) * BEAD_SPACING;
-        draw3DBead(elbowX, by, SIZES.counter, COLORS.counter.base, COLORS.counter.light, COLORS.counter.dark, null);
+        draw3DBead(elbowX, counterTopY + (i + 1) * BEAD_SPACING, SIZES.counter, COLORS.counter.base, COLORS.counter.light, COLORS.counter.dark, null);
       }
     }
-
     ctx.restore();
   }
 
+  // 绘制卡子（活口金属夹，卡在第7颗珠子后面的线上）
   function drawClip(cx, cy, angle) {
-    // Draw a clip/card on a bead position
     ctx.save();
     const clipX = cx;
     const clipY = cy - SIZES.main - 4;
@@ -567,7 +547,6 @@
     ctx.translate(clipX, clipY);
     ctx.rotate(angle + Math.PI/2);
 
-    // Clip body
     ctx.beginPath();
     ctx.roundRect(-w/2, -h/2, w, h, 2);
     const grad = ctx.createLinearGradient(0, -h/2, 0, h/2);
@@ -580,57 +559,20 @@
     ctx.lineWidth = 0.5;
     ctx.stroke();
 
-    // Decorative dot
     ctx.beginPath();
     ctx.arc(0, 0, 1.5, 0, Math.PI * 2);
     ctx.fillStyle = '#FFB900';
     ctx.fill();
-
     ctx.restore();
   }
 
-  function drawTassel(cx, topY) {
-    const strands = 18;
-    const tasselH = 36;
-    const tasselW = 24;
-    ctx.save();
-
-    // Knot
-    ctx.beginPath();
-    ctx.arc(cx, topY + 3, 5, 0, Math.PI * 2);
-    ctx.fillStyle = '#5C1A0E';
-    ctx.fill();
-
-    // Strands
-    for (let i = 0; i < strands; i++) {
-      const t = (i / (strands - 1)) - 0.5;
-      const sx = cx + t * tasselW * 0.8;
-      const ex = cx + t * tasselW + (Math.random() - 0.5) * 4;
-      const ey = topY + tasselH + (Math.random() - 0.5) * 6;
-
-      ctx.beginPath();
-      ctx.moveTo(sx, topY + 4);
-      ctx.quadraticCurveTo(
-        cx + t * tasselW * 0.4,
-        topY + tasselH * 0.5,
-        ex, ey
-      );
-      ctx.strokeStyle = `rgba(139,26,26,${0.3 + Math.random() * 0.4})`;
-      ctx.lineWidth = 1 + Math.random() * 0.5;
-      ctx.stroke();
-    }
-
-    ctx.restore();
-  }
-
+  // 绘制连接108颗主珠的串绳（半透明环线）
   function drawStringLine() {
-    // Draw the string/thread that connects all beads
     ctx.save();
     ctx.strokeStyle = COLORS.string;
     ctx.lineWidth = 1.2;
     ctx.globalAlpha = 0.4;
     ctx.beginPath();
-
     for (let i = 0; i <= TOTAL_BEADS; i++) {
       const idx = i % TOTAL_BEADS;
       const pos = getBeadPosition(idx);
@@ -642,8 +584,8 @@
     ctx.restore();
   }
 
+  // 绘制佛头与首尾主珠之间的连接线（虚线，表示穿线路径）
   function drawConnectingLinePortion() {
-    // Draw the string from last bead to guru and guru to first bead
     ctx.save();
     ctx.strokeStyle = COLORS.string;
     ctx.lineWidth = 1.5;
@@ -654,101 +596,99 @@
     const guruX = CX + RING_RADIUS * Math.cos(Math.PI / 2);
     const guruY = CY + RING_RADIUS * Math.sin(Math.PI / 2);
 
-    // From last bead to guru
     ctx.beginPath();
     ctx.moveTo(lastPos.x, lastPos.y);
-    ctx.quadraticCurveTo(
-      (lastPos.x + guruX) / 2 - 15,
-      (lastPos.y + guruY) / 2 + 20,
-      guruX, guruY
-    );
+    ctx.quadraticCurveTo((lastPos.x + guruX) / 2 - 15, (lastPos.y + guruY) / 2 + 20, guruX, guruY);
     ctx.stroke();
 
-    // From guru to first bead
     ctx.beginPath();
     ctx.moveTo(guruX, guruY);
-    ctx.quadraticCurveTo(
-      (firstPos.x + guruX) / 2 + 15,
-      (firstPos.y + guruY) / 2 + 20,
-      firstPos.x, firstPos.y
-    );
+    ctx.quadraticCurveTo((firstPos.x + guruX) / 2 + 15, (firstPos.y + guruY) / 2 + 20, firstPos.x, firstPos.y);
     ctx.stroke();
-
     ctx.restore();
   }
 
-  // ---- Label System ----
+  // ============================================================
+  // 标注系统
+  // ============================================================
+  // LABELS 数组存储所有标注信息，每条含:
+  //   text: 主标题（中文）
+  //   subtext: 副标题（英文+说明）
+  //   (tx, ty): 标注文字位置
+  //   (px, py): 引线附着点（对应组件位置）
+  //   accent: 是否高亮（金色标注+实线，vs 灰色标注+虚线）
+  // ============================================================
   const LABELS = [];
 
-  // Waist bead labels
   function addLabel(text, subtext, tx, ty, px, py, accent) {
     LABELS.push({ text, subtext, tx, ty, px, py, accent });
   }
 
-  // Compute label positions
+  // 计算所有标注位置（每次渲染前调用，确保位置与当前配置一致）
   function setupLabels() {
     LABELS.length = 0;
 
-    // Crown bead label (top)
+    // 顶珠标注（环形最顶端上方）
     const crownPos = getBeadPosition(CROWN_INDEX);
-    addLabel('顶珠', 'Crown Bead · 第54位', crownPos.x, crownPos.y - 32, crownPos.x, crownPos.y, true);
+    addLabel('顶珠', 'Crown Bead · 第54位', crownPos.x, crownPos.y - 38, crownPos.x, crownPos.y - 8, true);
 
-    // Waist beads
+    // 腰珠标注（环形左右两侧，向外推开）
     for (const wi of WAIST_INDICES) {
       const pos = getBeadPosition(wi);
       const isLeft = wi === 27;
-      const labelX = pos.x + (isLeft ? -28 : 28);
-      const labelY = pos.y - 15;
-      addLabel('腰珠', 'Waist Bead · 第' + wi + '位', labelX, labelY, pos.x, pos.y, true);
+      const labelX = pos.x + (isLeft ? -55 : 55);
+      const labelY = pos.y;
+      addLabel('腰珠', 'Waist Bead · 第' + wi + '位', labelX, labelY, pos.x + (isLeft ? -10 : 10), pos.y, true);
     }
 
-    // Guru bead label
+    // 佛头标注（环形底部右侧）
     const guruX = CX;
     const guruY = CY + RING_RADIUS;
-    addLabel('佛头 · 三通', 'Guru Bead · 第109颗', guruX + 85, guruY - 8, guruX + 18, guruY, true);
+    addLabel('佛头 · 三通', 'Guru Bead · 第109颗', guruX + 100, guruY - 5, guruX + 16, guruY + 2, true);
 
-    // Stupa label
-    addLabel('佛塔', 'Stupa', guruX + 85, guruY + 12, guruX + 5, guruY + 18, false);
+    // 佛塔标注（佛头标注下方）
+    addLabel('佛塔', 'Stupa', guruX + 100, guruY + 28, guruX + 5, guruY + 22, false);
 
-    // Back cloud label
-    const bcY = guruY + 45;
-    addLabel('背云', 'Back Cloud', guruX - 5, bcY - 30, guruX, bcY - 12, false);
+    // 背云标注（环形底部左侧）
+    const bcY = guruY + 61;
+    addLabel('背云', 'Back Cloud', guruX - 75, bcY, guruX - 14, bcY - 5, false);
 
-    // Disciple beads label
-    const discY = bcY + 85;
-    addLabel('弟子珠', 'Disciple Beads · 3颗/组', guruX - 38, discY + 60, guruX - 20, discY + 40, false);
-    addLabel('记子留', 'Terminator', guruX + 80, discY + 72, guruX + 12, discY + 52, false);
+    // 弟子珠标注（环形底部左侧，背云下方）
+    const discY = bcY + 75;
+    addLabel('弟子珠', 'Disciple Beads · 3颗/组', guruX - 50, discY + 55, guruX - 18, discY + 38, false);
 
-    // Counters labels — compute positions from elbow points
+    // 记子留标注（环形底部右侧）
+    addLabel('记子留', 'Terminator', guruX + 85, discY + 68, guruX + 14, discY + 50, false);
+
+    // 计数器① 标注（左侧，位于珠串正下方）
     const c1Angle = getMidBeadAngle(19, 20);
-    const c1RingX = CX + RING_RADIUS * Math.cos(c1Angle);
-    const c1RingY = CY + RING_RADIUS * Math.sin(c1Angle);
-    const c1ElbowX = c1RingX - 55;
-    const c1ElbowY = c1RingY;
-    addLabel('计数器①', 'Counter · 10颗 · 第20-21颗之间', c1ElbowX - 35, c1ElbowY + 55, c1ElbowX, c1ElbowY + 10, false);
+    const c1ElbowX = CX + RING_RADIUS * Math.cos(c1Angle) - 55;
+    const c1ElbowY = CY + RING_RADIUS * Math.sin(c1Angle);
+    addLabel('计数器①', 'Counter · 10颗 · 第20-21颗之间', c1ElbowX - 40, c1ElbowY + 130, c1ElbowX, c1ElbowY + 115, false);
 
+    // 计数器② 标注（右侧，位于珠串正下方）
     const c2Angle = getMidBeadAngle(87, 88);
-    const c2RingX = CX + RING_RADIUS * Math.cos(c2Angle);
-    const c2RingY = CY + RING_RADIUS * Math.sin(c2Angle);
-    const c2ElbowX = c2RingX + 55;
-    const c2ElbowY = c2RingY;
-    addLabel('计数器②', 'Counter · 10颗 · 第88-89颗之间', c2ElbowX + 35, c2ElbowY + 55, c2ElbowX, c2ElbowY + 10, false);
+    const c2ElbowX = CX + RING_RADIUS * Math.cos(c2Angle) + 55;
+    const c2ElbowY = CY + RING_RADIUS * Math.sin(c2Angle);
+    addLabel('计数器②', 'Counter · 10颗 · 第88-89颗之间', c2ElbowX + 40, c2ElbowY + 130, c2ElbowX, c2ElbowY + 115, false);
 
-    // Clip label
-    const clipBeadIndex = 14;
-    const clipPos = getBeadPosition(clipBeadIndex);
-    addLabel('卡子', 'Clip · 活口可移动', clipPos.x - 55, clipPos.y - 20, clipPos.x - 12, clipPos.y - 8, false);
+    // 卡子标注（沿径向向外，远离环形）
+    const clipPos = getBeadPosition(CLIP_BEAD_INDEX);
+    const clipLabelAngle = Math.atan2(clipPos.y - CY, clipPos.x - CX);
+    const clipLabelX = CX + RING_RADIUS * 1.6 * Math.cos(clipLabelAngle);
+    const clipLabelY = CY + RING_RADIUS * 1.6 * Math.sin(clipLabelAngle);
+    addLabel('卡子', 'Clip · 活口可移动 · 第7颗后', clipLabelX, clipLabelY, clipPos.x - 14, clipPos.y - 10, false);
 
-    // Center title
+    // 中心标题
     addLabel('108 颗主珠', 'Main Beads · 环形排列', CX, CY - 8, CX, CY, false);
   }
 
+  // 绘制所有标注（引线 + 文字）
   function drawLabels() {
     ctx.save();
     for (const label of LABELS) {
       const isAccent = label.accent;
 
-      // Line from point to label
       ctx.beginPath();
       ctx.moveTo(label.px, label.py);
       ctx.lineTo(label.tx, label.ty);
@@ -758,7 +698,6 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Label text
       ctx.fillStyle = isAccent ? COLORS.labelAccent : COLORS.label;
       ctx.font = '600 13px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'center';
@@ -775,15 +714,17 @@
     ctx.restore();
   }
 
-  // ---- Legend ----
+  // ============================================================
+  // 图例
+  // ============================================================
   function drawLegend() {
     const items = [
-      { label: '主珠 108', color: '#8B7355', type: 'main' },
-      { label: '腰珠 ×3', color: '#B83A2A', type: 'waist' },
-      { label: '顶珠 ×1', color: '#D4A060', type: 'crown' },
-      { label: '佛头 ×1', color: '#5C1A0E', type: 'guru' },
-      { label: '弟子珠', color: '#4A6FA5', type: 'disciple' },
-      { label: '计数器', color: '#8B7A60', type: 'counter' },
+      { label: '主珠 108', color: '#8B7355' },
+      { label: '腰珠 ×3', color: '#B83A2A' },
+      { label: '顶珠 ×1', color: '#D4A060' },
+      { label: '佛头 ×1', color: '#5C1A0E' },
+      { label: '弟子珠', color: '#4A6FA5' },
+      { label: '计数器', color: '#8B7A60' },
     ];
 
     const startX = 120;
@@ -795,10 +736,8 @@
       const item = items[i];
       const x = startX + i * gap;
 
-      // Circle
       draw3DBead(x, y, 5, item.color, item.color, '#333', null);
 
-      // Label
       ctx.fillStyle = '#A09888';
       ctx.font = '12px system-ui, sans-serif';
       ctx.textAlign = 'left';
@@ -806,7 +745,6 @@
       ctx.fillText(item.label, x + 10, y);
     }
 
-    // Section title
     ctx.fillStyle = '#6B6560';
     ctx.font = '11px system-ui, sans-serif';
     ctx.textAlign = 'left';
@@ -815,7 +753,9 @@
     ctx.restore();
   }
 
-  // ---- Section annotations ----
+  // ============================================================
+  // 四段标注（环形内侧显示第1-4段）
+  // ============================================================
   function drawSectionAnnotations() {
     ctx.save();
 
@@ -838,26 +778,26 @@
       ctx.textBaseline = 'middle';
       ctx.fillText(sec.label, x, y);
 
-      // Small dots at section boundaries
       ctx.fillStyle = 'rgba(160,152,136,0.15)';
       ctx.beginPath();
       ctx.arc(x, y + 14, 2, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Arrow indicators
     ctx.fillStyle = 'rgba(160,152,136,0.12)';
     ctx.font = '14px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('↻ 顺时针排列', CX, CY - RING_RADIUS - 30);
-
     ctx.restore();
   }
 
-  // ---- Hit detection ----
+  // ============================================================
+  // 命中检测（鼠标交互）
+  // ============================================================
+
+  // 检测鼠标是否在某颗珠子上（按特殊珠→主珠顺序，特殊珠有更大命中半径）
   function findBeadAt(mx, my) {
-    // Check special beads first (larger)
     for (const bead of beads) {
       if (bead.type !== 'main') {
         const dx = mx - bead.x;
@@ -867,7 +807,6 @@
         }
       }
     }
-    // Then check main beads
     for (const bead of beads) {
       if (bead.type === 'main') {
         const dx = mx - bead.x;
@@ -880,32 +819,23 @@
     return null;
   }
 
+  // 检测鼠标是否在非珠子的组件区域内（佛头、佛塔、背云、弟子珠、计数器、卡子）
   function findRegionAt(mx, my) {
     const guruX = CX;
     const guruY = CY + RING_RADIUS;
 
-    // Guru bead
     const gd = Math.hypot(mx - guruX, my - guruY);
     if (gd < SIZES.guru + 5) return 'guru';
 
-    // Stupa (below guru bead, pointing downward)
     if (mx > guruX - 15 && mx < guruX + 15 && my > guruY + SIZES.guru + 2 && my < guruY + SIZES.guru + 30) return 'stupa';
 
-    // Back cloud
-    const bcY = guruY + 42;
-    const bcd = Math.hypot(mx - guruX, my - bcY);
-    if (bcd < 22) return 'backcloud';
+    const bcY = guruY + 61;
+    if (Math.hypot(mx - guruX, my - bcY) < 24) return 'backcloud';
 
-    // Disciple beads
-    const discY = bcY + 18;
-    const discStartY = discY;
-    const discEndY = discY + 10 * 14 + 20;
-    if (mx > guruX - 30 && mx < guruX + 30 && my > discStartY && my < discEndY) return 'disciple';
+    const discStartY = bcY + 22;
+    const discEndY = discStartY + 3 * 14 + 16;
+    if (mx > guruX - 30 && mx < guruX + 30 && my > discStartY - 5 && my < discEndY + 5) return 'disciple';
 
-    // Tassel
-    if (mx > guruX - 20 && mx < guruX + 20 && my > discEndY + 5 && my < discEndY + 50) return 'tassel';
-
-    // Counters — at positions between bead 20-21 and bead 88-89
     const counterPositions = [
       { i1: 19, i2: 20, side: -1 },
       { i1: 87, i2: 88, side: 1 },
@@ -919,21 +849,37 @@
         && my > cry - 10 && my < cry + 120) return 'counter';
     }
 
-    // Clip
-    const clipPos = getBeadPosition(14);
+    const clipPos = getBeadPosition(CLIP_BEAD_INDEX);
     if (Math.hypot(mx - clipPos.x, my - (clipPos.y - SIZES.main - 4)) < 10) return 'clip';
 
     return null;
   }
 
-  // ---- Main Render ----
+  // ============================================================
+  // 主渲染函数
+  // ============================================================
+  // 渲染顺序（从底到顶）:
+  // 1. 背景渐变
+  // 2. 环形光晕
+  // 3. 串绳
+  // 4. 主珠（按 y 排序实现正确遮挡）
+  // 5. 隔片（腰珠两侧）
+  // 6. 佛头 + 佛塔
+  // 7. 背云
+  // 8. 弟子珠
+  // 9. 计数器
+  // 10. 卡子
+  // 11. 四段标注
+  // 12. 组件标注
+  // 13. 图例
+  // 14. 标题信息
+  // ============================================================
   let hoveredBead = null;
   let hoveredRegion = null;
 
   function render() {
     ctx.clearRect(0, 0, W, H);
 
-    // Background
     const bgGrad = ctx.createRadialGradient(CX, CY, 100, CX, CY, 500);
     bgGrad.addColorStop(0, '#1A1610');
     bgGrad.addColorStop(0.5, '#0F0E0C');
@@ -941,7 +887,6 @@
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // Subtle ring glow
     ctx.save();
     ctx.beginPath();
     ctx.arc(CX, CY, RING_RADIUS, 0, Math.PI * 2);
@@ -952,59 +897,35 @@
     ctx.stroke();
     ctx.restore();
 
-    // Draw string thread
     drawStringLine();
     drawConnectingLinePortion();
 
-    // Sort beads by y for proper z-order (draw back-to-front)
     const sortedBeads = [...beads].sort((a, b) => a.y - b.y);
-
-    // Draw beads
     for (const bead of sortedBeads) {
       const isHovered = hoveredBead && hoveredBead.index === bead.index;
       drawBeadWithStyle(bead.x, bead.y, bead.size, bead.color, isHovered, bead.index);
-
-      // Draw spacer discs around waist beads
       if (bead.type === 'waist') {
         drawSpacerDisc(bead.x, bead.y, bead.angle, bead.size);
       }
     }
 
-    // Draw guru bead + stupa (on top)
     const guruX = CX;
     const guruY = CY + RING_RADIUS;
     drawGuruBead(guruX, guruY);
 
-    // Draw back cloud (with gap from stupa)
-    const bcY = guruY + 55;
+    const bcY = guruY + 61;
     drawBackCloud(guruX, bcY);
-
-    // Draw disciple beads (with gap from back cloud)
     drawDiscipleBeads(guruX, bcY + 22, 3, 14);
-
-    // Draw tassel
-    const discEndY = bcY + 22 + 3 * 14 + 16;
-    drawTassel(guruX, discEndY);
-
-    // Draw counters
     drawCounters(CX, CY);
 
-    // Draw clip
-    const clipPos = getBeadPosition(14);
-    const clipAngle = getBeadAngle(14);
-    drawClip(clipPos.x, clipPos.y, clipAngle);
+    const clipPos = getBeadPosition(CLIP_BEAD_INDEX);
+    drawClip(clipPos.x, clipPos.y, getBeadAngle(CLIP_BEAD_INDEX));
 
-    // Draw section annotations
     drawSectionAnnotations();
-
-    // Draw labels
     setupLabels();
     drawLabels();
-
-    // Draw legend
     drawLegend();
 
-    // Draw title info
     ctx.save();
     ctx.fillStyle = 'rgba(160,152,136,0.3)';
     ctx.font = '11px system-ui, sans-serif';
@@ -1014,14 +935,19 @@
     ctx.restore();
   }
 
-  // ---- Interaction ----
+  // ============================================================
+  // 交互事件处理
+  // ============================================================
+
+  // 将鼠标事件坐标映射到 Canvas 物理坐标系（考虑 CSS 缩放）
   function getCanvasCoords(e) {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
-    return { x, y };
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
+    };
   }
 
   function hideTip() {
@@ -1034,8 +960,6 @@
     let tx = e.clientX - wrapperRect.left + 16;
     let ty = e.clientY - wrapperRect.top - 10;
 
-    // Keep in bounds
-    const tipRect = tip.getBoundingClientRect();
     const tipW = 260;
     if (tx + tipW > wrapperRect.width - 16) {
       tx = e.clientX - wrapperRect.left - tipW - 16;
@@ -1063,26 +987,23 @@
     }
 
     if (bead) {
-      // Show tip for bead
       let info;
       if (bead.type === 'main') info = COMPONENT_INFO.main;
       else if (bead.type === 'waist') info = COMPONENT_INFO.waist;
       else if (bead.type === 'crown') info = COMPONENT_INFO.crown;
       else info = COMPONENT_INFO.main;
 
-      const tipHtml = '<div class="tip-title">' + info.title + '</div>' +
+      tip.innerHTML = '<div class="tip-title">' + info.title + '</div>' +
         '<div class="tip-desc">' + info.desc + '</div>' +
         '<div class="tip-desc" style="margin-top:4px;font-size:11px;color:#6B6560">第 ' + (bead.index + 1) + ' 颗</div>';
-      tip.innerHTML = tipHtml;
       tip.style.opacity = '1';
       updateTipPosition(e);
       canvas.style.cursor = 'pointer';
     } else if (region) {
       const info = COMPONENT_INFO[region];
       if (info) {
-        const tipHtml = '<div class="tip-title">' + info.title + '</div>' +
+        tip.innerHTML = '<div class="tip-title">' + info.title + '</div>' +
           '<div class="tip-desc">' + info.desc + '</div>';
-        tip.innerHTML = tipHtml;
         tip.style.opacity = '1';
         updateTipPosition(e);
         canvas.style.cursor = 'pointer';
@@ -1107,7 +1028,7 @@
     canvas.style.cursor = 'default';
   });
 
-  // ---- roundRect polyfill for older browsers ----
+  // roundRect polyfill（兼容不支持此 API 的浏览器）
   if (!CanvasRenderingContext2D.prototype.roundRect) {
     CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
       if (r > w / 2) r = w / 2;
@@ -1125,7 +1046,7 @@
     };
   }
 
-  // ---- Start ----
+  // 初始渲染
   render();
 })();
 </script>
