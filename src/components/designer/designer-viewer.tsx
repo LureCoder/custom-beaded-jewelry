@@ -1,8 +1,7 @@
-// designer-viewer.tsx: Designer 主视图 — 3D 场景 + 配置面板
+// designer-viewer.tsx: Designer 主视图 — 2D 预览 + 配置面板
 'use client';
 
-import { DesignerCanvas } from './scene/canvas';
-import { MalaScene } from './beads/mala-scene';
+import { DesignerPreview2D } from './preview/designer-preview-2d';
 import { MaterialPanelClient } from './panels/material-panel-client';
 import { ConfigPanel } from './panels/config-panel';
 import { useDesignerStore } from '@/lib/designer/store';
@@ -22,9 +21,7 @@ export function DesignerViewer({ materials }: DesignerViewerProps) {
         </div>
 
         <div className="flex-1 relative min-h-0">
-          <DesignerCanvas>
-            <MalaScene />
-          </DesignerCanvas>
+          <DesignerPreview2D materials={materials} />
 
           <div className="absolute bottom-4 left-4 right-4 lg:hidden">
             <div className="bg-[var(--color-bg-primary)]/90 backdrop-blur-sm rounded-[var(--radius-lg)] border border-[var(--color-border)] p-4">

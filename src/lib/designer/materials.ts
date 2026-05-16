@@ -249,6 +249,70 @@ export const MATERIAL_GROUPS: MaterialGroup[] = [
           '远离化学品',
         ],
       },
+      {
+        id: 'purple-crystal',
+        name: { zh: '紫水晶', en: 'Purple Crystal' },
+        category: 'crystal',
+        images: {
+          hero: '/images/materials/crystal/purple-crystal.png',
+          thumb: '/images/materials/crystal/purple-crystal.png',
+          texture: '/textures/crystal.jpg',
+        },
+        sizes: [8, 10, 12, 14],
+        actualPhotos: [
+          {
+            imagePath: '/images/materials/crystal/purple-crystal-1.jpg',
+            description: { zh: '紫水晶念珠实物图', en: 'Purple Crystal Mala' },
+          },
+        ],
+        properties: {
+          hardness: 7.0,
+          density: 2.65,
+          origin: '乌拉圭',
+          energy: '灵性',
+        },
+        pricing: {
+          basePrice: 15,
+          pricePerMm: 1.0,
+        },
+        care: [
+          '避免暴晒褪色',
+          '定期消磁',
+          '轻拿轻放',
+        ],
+      },
+      {
+        id: 'yellow-crystal',
+        name: { zh: '黄水晶', en: 'Yellow Crystal' },
+        category: 'crystal',
+        images: {
+          hero: '/images/materials/crystal/yellow-crystal.png',
+          thumb: '/images/materials/crystal/yellow-crystal.png',
+          texture: '/textures/crystal.jpg',
+        },
+        sizes: [8, 10, 12, 14],
+        actualPhotos: [
+          {
+            imagePath: '/images/materials/crystal/yellow-crystal-1.png',
+            description: { zh: '黄水晶念珠实物图', en: 'Yellow Crystal Mala' },
+          },
+        ],
+        properties: {
+          hardness: 7.0,
+          density: 2.65,
+          origin: '巴西',
+          energy: '招财',
+        },
+        pricing: {
+          basePrice: 14,
+          pricePerMm: 0.9,
+        },
+        care: [
+          '避免暴晒',
+          '定期消磁',
+          '远离化学品',
+        ],
+      },
     ],
   },
 ];
