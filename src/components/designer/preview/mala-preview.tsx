@@ -16,22 +16,36 @@ const TOTAL_POSITIONS = 112;
 const GURU_INDEX = 0;
 const CROWN_INDEX = 56;
 const WAIST_INDICES = [28, 84];
-const BASE_RADIUS = 350;
+const BASE_RADIUS = 400;
 
 const BEAD_SIZES = {
-  main: 15,
-  waist: 17,
-  crown: 19,
+  main: 17,
+  waist: 21,
+  crown: 25,
   guru: 19,
-  disciple: 15,
+  disciple: 17,
   counter: 15,
   clip: 15,
 };
 
 const GURU_DISPLAY_SIZE = BEAD_SIZES.guru;
 const STUPA_DISPLAY_SIZE = Math.round(GURU_DISPLAY_SIZE * 0.6);
+const GURU_RECT_HEIGHT = Math.round(BEAD_SIZES.guru * 1.5);
+const GURU_TOTAL_HEIGHT = GURU_RECT_HEIGHT + STUPA_DISPLAY_SIZE;
 const CONTAINER_HEIGHT = BASE_RADIUS * 2 + GURU_DISPLAY_SIZE + STUPA_DISPLAY_SIZE + 60;
 const CONTAINER_WIDTH = BASE_RADIUS * 2 + BEAD_SIZES.crown + 60;
+
+const BACK_CLOUD_ID = -1;
+const DISCIPLE_START = -10;
+
+const DISCIPLE_BEADS = [
+  { x: -9,  y: 0,  label: '109' },
+  { x: 9,   y: 0,  label: '112' },
+  { x: -13, y: 16, label: '110' },
+  { x: 13,  y: 16, label: '113' },
+  { x: -17, y: 32, label: '111' },
+  { x: 17,  y: 32, label: '114' },
+];
 
 interface BeadData {
   index: number;
@@ -180,8 +194,12 @@ function BeadNode({
 
 function GuruBeadSet({
   material,
+  isSelected,
+  onClick,
 }: {
   material: MaterialConfig | null;
+  isSelected: boolean;
+  onClick: () => void;
 }) {
   const locale = useLocale();
   const name = material ? (locale === 'en' ? material.name.en : material.name.zh) : '';
@@ -189,61 +207,79 @@ function GuruBeadSet({
   const guruSize = BEAD_SIZES.guru;
   const stupaSize = STUPA_DISPLAY_SIZE;
   const guruRadius = BASE_RADIUS;
+  const sq = guruSize;
+  const guruH = Math.round(sq * 1.5);
+  const st = stupaSize;
+  const totalHeight = guruH + st;
+
+  const outlinePath = `M 0 0 L ${sq} 0 L ${sq} ${guruH} L ${sq / 2} ${totalHeight} L 0 ${guruH} Z`;
 
   return (
     <div
-      className="absolute transition-all duration-600"
+      className="absolute cursor-pointer transition-all duration-600"
       style={{
         left: `calc(50% - ${guruSize / 2}px)`,
         top: `calc(50% + ${guruRadius}px - ${guruSize / 2}px)`,
-        width: `${guruSize}px`,
-        height: `${guruSize + stupaSize + 4}px`,
+        width: `${sq}px`,
+        height: `${totalHeight}px`,
         zIndex: 300,
+        transform: isSelected ? 'scale(1.2)' : 'scale(1)',
       }}
+      onClick={onClick}
     >
-      <div
-        className={`
-          relative w-full rounded-full overflow-hidden
-          flex items-center justify-center
-          border-2 transition-all duration-600
-          ${material
-            ? 'border-transparent'
-            : 'border-[var(--color-accent)] bg-[var(--color-bg-secondary)]'
-          }
-        `}
-        style={{
-          width: `${guruSize}px`,
-          height: `${guruSize}px`,
-        }}
-      >
-        {material && (
-          <Image
-            src={material.thumbnail}
-            alt={name}
-            fill
-            sizes={`${guruSize}px`}
-            className="object-contain"
+      <div className="relative w-full h-full">
+        <svg
+          className="absolute inset-0 pointer-events-none"
+          style={{ width: '100%', height: '100%' }}
+          viewBox={`0 0 ${sq} ${totalHeight}`}
+        >
+          <path
+            d={outlinePath}
+            fill={material ? 'transparent' : 'var(--color-bg-secondary)'}
+            stroke={material ? 'transparent' : 'var(--color-accent)'}
+            strokeWidth="2"
+            strokeLinejoin="round"
           />
-        )}
-      </div>
+          {isSelected && (
+            <path
+              d={outlinePath}
+              fill="none"
+              stroke="var(--color-accent)"
+              strokeWidth="4"
+              strokeLinejoin="round"
+              opacity="0.7"
+              transform={`translate(0, 0)`}
+            />
+          )}
+        </svg>
 
-      <div
-        className={`
-          absolute left-1/2 -translate-x-1/2
-          rounded-full overflow-hidden
-          flex items-center justify-center
-          border-2 transition-all duration-600
-          ${material
-            ? 'border-transparent bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-hover)]'
-            : 'border-[var(--color-accent)] bg-[var(--color-bg-secondary)]'
+        <div
+          className="relative overflow-hidden"
+          style={{ width: '100%', height: `${guruH}px` }}
+        >
+          {material && (
+            <Image
+              src={material.thumbnail}
+              alt={name}
+              fill
+              sizes={`${sq}px`}
+              className="object-contain"
+            />
+          )}
+        </div>
+
+        <div
+          className={material
+            ? 'bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-accent-hover)]'
+            : ''
           }
-        `}
-        style={{
-          width: `${stupaSize}px`,
-          height: `${stupaSize}px`,
-          top: `${guruSize + 4}px`,
-        }}
-      />
+          style={{
+            width: '100%',
+            height: `${st}px`,
+            clipPath: `polygon(0% 0%, 100% 0%, 50% 100%)`,
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -425,8 +461,8 @@ export function MalaPreview({ materials }: MalaPreviewProps) {
       }
       
       if (label) {
-        const angle = Math.atan2(bead.y, bead.x);
-        const labelDistance = 50;
+          const angle = Math.atan2(bead.y, bead.x);
+          const labelDistance = 50;
         const lineAngleOffset = Math.PI / 4;
         
         const labelX = bead.x + Math.cos(angle) * labelDistance;
@@ -450,6 +486,35 @@ export function MalaPreview({ materials }: MalaPreviewProps) {
         });
       }
     });
+
+    const guruLabel = t('guru_bead');
+    if (guruLabel) {
+      const guruX = 0;
+      const guruY = BASE_RADIUS;
+      const angle = Math.PI / 4;
+      const labelDistance = 100;
+      const lineAngleOffset = Math.PI / 4;
+
+      const labelX = guruX + Math.cos(angle) * labelDistance;
+      const labelY = guruY + Math.sin(angle) * labelDistance;
+
+      const lineStartX = guruX + Math.cos(angle) * (BEAD_SIZES.guru / 2 + 2);
+      const lineStartY = guruY + Math.sin(angle) * (BEAD_SIZES.guru / 2 + 2);
+
+      const lineAngle = angle + Math.PI + lineAngleOffset;
+      const lineEndX = labelX + Math.cos(lineAngle) * 15;
+      const lineEndY = labelY + Math.sin(lineAngle) * 15;
+
+      result.push({
+        label: guruLabel,
+        labelX,
+        labelY,
+        lineStartX,
+        lineStartY,
+        lineEndX,
+        lineEndY,
+      });
+    }
     
     return result;
   }, [beads, t]);
@@ -484,7 +549,7 @@ export function MalaPreview({ materials }: MalaPreviewProps) {
             fill="none"
             stroke="var(--color-border)"
             strokeWidth="1"
-            opacity="0.3"
+            opacity="0.6"
           />
         </svg>
         
@@ -504,8 +569,81 @@ export function MalaPreview({ materials }: MalaPreviewProps) {
 
         <GuruBeadSet
           material={getGuruMaterial()}
+          isSelected={selectedBead === GURU_INDEX}
+          onClick={() => {
+            if (!hasDraggedRef.current) {
+              selectBead(selectedBead === GURU_INDEX ? null : GURU_INDEX);
+            }
+          }}
         />
-        
+
+        {(
+          <div
+            className="absolute cursor-pointer transition-all duration-600"
+            style={{
+              left: `calc(50% - 13.5px)`,
+              top: `calc(50% + ${BASE_RADIUS}px - ${BEAD_SIZES.guru / 2}px + ${GURU_TOTAL_HEIGHT}px + 14px)`,
+              width: '27px',
+              height: '9px',
+              zIndex: 290,
+              transform: selectedBead === BACK_CLOUD_ID ? 'scale(1.2)' : 'scale(1)',
+            }}
+            onClick={() => {
+              if (!hasDraggedRef.current) {
+                selectBead(selectedBead === BACK_CLOUD_ID ? null : BACK_CLOUD_ID);
+              }
+            }}
+          >
+            <div
+              className={`
+                relative w-full h-full border-2 transition-all duration-600
+                border-[var(--color-accent)] bg-[var(--color-bg-secondary)]
+                ${selectedBead === BACK_CLOUD_ID ? 'ring-2 ring-[var(--color-accent)] ring-offset-2' : ''}
+              `}
+            />
+          </div>
+        )}
+
+        {DISCIPLE_BEADS.map((bead, i) => {
+          const beadId = DISCIPLE_START + i;
+          const dSize = BEAD_SIZES.main;
+          return (
+            <div
+              key={i}
+              className="absolute cursor-pointer transition-all duration-600"
+              style={{
+                left: `calc(50% + ${bead.x}px - ${dSize / 2}px)`,
+                top: `calc(50% + ${BASE_RADIUS}px - ${BEAD_SIZES.guru / 2}px + ${GURU_TOTAL_HEIGHT}px + 14px + 9px + 6px + 14px + ${bead.y}px - ${dSize / 2}px)`,
+                width: `${dSize}px`,
+                height: `${dSize}px`,
+                zIndex: 280,
+                transform: selectedBead === beadId ? 'scale(1.3)' : 'scale(1)',
+              }}
+              onClick={() => {
+                if (!hasDraggedRef.current) {
+                  selectBead(selectedBead === beadId ? null : beadId);
+                }
+              }}
+            >
+              <div
+                className={`
+                  relative w-full h-full rounded-full border-2 transition-all duration-600
+                  flex items-center justify-center
+                  border-[var(--color-border)] bg-[var(--color-bg-secondary)]
+                  ${selectedBead === beadId ? 'ring-2 ring-[var(--color-accent)] ring-offset-2' : ''}
+                `}
+              >
+                <span
+                  className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-[var(--color-text-primary)] pointer-events-none select-none"
+                  style={{ textShadow: '0 0 1px rgba(0,0,0,0.2)' }}
+                >
+                  {bead.label}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+
         <svg
           className="absolute inset-0 pointer-events-none"
           width={CONTAINER_WIDTH}
