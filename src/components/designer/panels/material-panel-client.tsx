@@ -57,6 +57,11 @@ function MaterialVariantCard({ id, material, size, isSelected, onSelect }: Mater
       >
         <button
           onClick={onSelect}
+          draggable
+          onDragStart={(e) => {
+            e.dataTransfer.setData('application/x-mala-material', JSON.stringify({ materialId: id, diameter: size }));
+            e.dataTransfer.effectAllowed = 'copy';
+          }}
           className={`
             relative flex flex-col gap-2 p-3 rounded-[var(--radius-md)]
             border transition-all duration-300 w-full

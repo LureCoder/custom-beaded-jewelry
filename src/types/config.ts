@@ -47,5 +47,6 @@ export interface DesignConfig {
   updatedAt: string;
   materialAssignment: BeadMaterialAssignment;
   singleBeadOverrides: Record<number, string>;
+  segmentDiameters: Record<number, number>;
   selectedBead: number | null;
 }

@@ -30,6 +30,7 @@ function getDefaultConfig(): DesignConfig {
       disciple: 'red-sandalwood',
     },
     singleBeadOverrides: {},
+    segmentDiameters: {},
     selectedBead: null,
   };
 }
@@ -62,6 +63,7 @@ interface DesignerState {
   setSelectedBead: (index: number | null) => void;
   setMaterialForType: (type: BeadPositionType, materialId: string) => void;
   setMaterialForSingleBead: (index: number, materialId: string) => void;
+  setMaterialForSegment: (segmentIndex: number, beadIndices: number[], materialId: string, diameter: number) => void;
   selectBead: (index: number | null) => void;
 }
 
@@ -187,6 +189,16 @@ export const useDesignerStore = create<DesignerState>()(
     setMaterialForSingleBead: (index, materialId) =>
       set((state) => {
         state.config.singleBeadOverrides[index] = materialId;
+        state.config.updatedAt = new Date().toISOString();
+        state.config.totalPrice = calculatePrice(state.config);
+      }),
+
+    setMaterialForSegment: (segmentIndex, beadIndices, materialId, diameter) =>
+      set((state) => {
+        for (const idx of beadIndices) {
+          state.config.singleBeadOverrides[idx] = materialId;
+        }
+        state.config.segmentDiameters[segmentIndex] = diameter;
         state.config.updatedAt = new Date().toISOString();
         state.config.totalPrice = calculatePrice(state.config);
       }),
