@@ -1,6 +1,6 @@
 // designer.ts: Designer 页面类型定义 — UI 状态和操作
 
-import type { AccessoryConfig, TasselConfig, PendantConfig, CounterConfig } from './config';
+import type { AccessoryConfig, TasselConfig, PendantConfig, CounterConfig, BeadPositionType } from './config';
 
 export type ActivePanel = 'materials' | 'config' | 'size';
 
@@ -32,4 +32,7 @@ export interface DesignerActions {
   setActivePanel: (panel: ActivePanel) => void;
   toggleARMode: () => void;
   setSelectedBead: (index: number | null) => void;
+  setMaterialForType: (type: BeadPositionType, materialId: string) => void;
+  setMaterialForSingleBead: (index: number, materialId: string) => void;
+  selectBead: (index: number | null) => void;
 }

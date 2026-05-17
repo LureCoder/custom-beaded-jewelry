@@ -73,6 +73,8 @@
     "total_price": "Total",
     "save_design": "Save Design",
     "reset": "Reset",
-    "ar_mode": "AR Try-On"
+    "ar_mode": "AR Try-On",
+    "crown_bead": "Crown",
+    "waist_bead": "Waist"
   }
 }

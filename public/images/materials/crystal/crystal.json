@@ -19,6 +19,7 @@
       "sizeUnit": "mm",
       "thumbnail": "white-crystal.png",
       "texture": "crystal.jpg",
+      "applicableTo": ["main", "crown", "disciple"],
       "photos": [
         {
           "path": "white-crystal-1.jpg",
@@ -64,6 +65,7 @@
       "sizeUnit": "mm",
       "thumbnail": "purple-crystal.png",
       "texture": "crystal.jpg",
+      "applicableTo": ["main", "crown", "disciple"],
       "photos": [
         {
           "path": "purple-crystal-1.jpg",
@@ -102,6 +104,7 @@
       "sizeUnit": "mm",
       "thumbnail": "yellow-crystal.png",
       "texture": "crystal.jpg",
+      "applicableTo": ["main", "crown", "disciple"],
       "photos": [
         {
           "path": "yellow-crystal-1.png",

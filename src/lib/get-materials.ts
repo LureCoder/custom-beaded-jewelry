@@ -1,6 +1,7 @@
 // get-materials.ts: 动态加载材质配置 — 从文件系统读取 JSON
 import { promises as fs } from 'fs';
 import path from 'path';
+import type { BeadPositionType } from '@/types/config';
 
 const MATERIALS_DIR = path.join(process.cwd(), 'public', 'images', 'materials');
 
@@ -32,6 +33,7 @@ export interface MaterialConfig {
   sizeUnit: string;
   thumbnail: string;
   texture: string;
+  applicableTo: BeadPositionType[];
   photos: MaterialPhoto[];
   properties: MaterialProperties;
   pricing: MaterialPricing;

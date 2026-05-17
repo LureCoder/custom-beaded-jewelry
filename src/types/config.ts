@@ -1,5 +1,15 @@
 // config.ts: 配置类型定义 — Designer 配置状态
 
+export type BeadPositionType = 'main' | 'crown' | 'waist' | 'guru' | 'disciple';
+
+export interface BeadMaterialAssignment {
+  main: string;
+  crown: string;
+  waist: string;
+  guru: string;
+  disciple: string;
+}
+
 export interface BeadConfig {
   count: number;
   diameter: 6 | 8 | 10 | 12;
@@ -35,4 +45,7 @@ export interface DesignConfig {
   totalPrice: number;
   createdAt: string;
   updatedAt: string;
+  materialAssignment: BeadMaterialAssignment;
+  singleBeadOverrides: Record<number, string>;
+  selectedBead: number | null;
 }

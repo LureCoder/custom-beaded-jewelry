@@ -1,7 +1,7 @@
 // designer-viewer.tsx: Designer 主视图 — 2D 预览 + 配置面板
 'use client';
 
-import { DesignerPreview2D } from './preview/designer-preview-2d';
+import { MalaPreview } from './preview/mala-preview';
 import { MaterialPanelClient } from './panels/material-panel-client';
 import { ConfigPanel } from './panels/config-panel';
 import { useDesignerStore } from '@/lib/designer/store';
@@ -22,7 +22,7 @@ export function DesignerViewer({ materials, accessories }: DesignerViewerProps) 
         </div>
 
         <div className="flex-1 relative min-h-0">
-          <DesignerPreview2D materials={materials} />
+          <MalaPreview materials={materials} />
 
           <div className="absolute bottom-4 left-4 right-4 lg:hidden">
             <div className="bg-[var(--color-bg-primary)]/90 backdrop-blur-sm rounded-[var(--radius-lg)] border border-[var(--color-border)] p-4">

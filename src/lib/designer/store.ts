@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { nanoid } from 'nanoid';
-import type { DesignConfig, AccessoryConfig } from '@/types/config';
+import type { DesignConfig, AccessoryConfig, BeadPositionType } from '@/types/config';
 import { calculatePrice } from './pricing';
 import { logger } from './logger';
 
@@ -22,6 +22,15 @@ function getDefaultConfig(): DesignConfig {
     totalPrice: 0,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    materialAssignment: {
+      main: 'red-sandalwood',
+      crown: 'red-sandalwood',
+      waist: 'red-sandalwood',
+      guru: 'red-sandalwood',
+      disciple: 'red-sandalwood',
+    },
+    singleBeadOverrides: {},
+    selectedBead: null,
   };
 }
 
@@ -51,6 +60,9 @@ interface DesignerState {
   setActivePanel: (panel: 'materials' | 'config' | 'size') => void;
   toggleARMode: () => void;
   setSelectedBead: (index: number | null) => void;
+  setMaterialForType: (type: BeadPositionType, materialId: string) => void;
+  setMaterialForSingleBead: (index: number, materialId: string) => void;
+  selectBead: (index: number | null) => void;
 }
 
 export const useDesignerStore = create<DesignerState>()(
@@ -159,6 +171,29 @@ export const useDesignerStore = create<DesignerState>()(
     setSelectedBead: (index) =>
       set((state) => {
         state.ui.selectedBeadIndex = index;
+      }),
+
+    setMaterialForType: (type, materialId) =>
+      set((state) => {
+        logger.materialChange(state.config.materialId, materialId);
+        if (type === 'main') {
+          state.config.singleBeadOverrides = {};
+        }
+        state.config.materialAssignment[type] = materialId;
+        state.config.updatedAt = new Date().toISOString();
+        state.config.totalPrice = calculatePrice(state.config);
+      }),
+
+    setMaterialForSingleBead: (index, materialId) =>
+      set((state) => {
+        state.config.singleBeadOverrides[index] = materialId;
+        state.config.updatedAt = new Date().toISOString();
+        state.config.totalPrice = calculatePrice(state.config);
+      }),
+
+    selectBead: (index) =>
+      set((state) => {
+        state.config.selectedBead = index;
       }),
   }))
 );
